@@ -1,10 +1,18 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents a Hotel Reservation System that manages multiple hotels.
+ */
 public class HRSystem
 {
     private ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
 
+    /**
+     * Creates a new hotel with the specified name.
+     * @param name the name of the new hotel
+     * @return true if the hotel is created successfully, false if the hotel already exists
+     */
     public boolean createHotel(String name)
     {
         boolean success = false;
@@ -18,6 +26,11 @@ public class HRSystem
         return success;
     }
 
+    /**
+     * Removes a hotel with the specified name.
+     * @param name the name of the hotel to remove
+     * @return true if the hotel is removed successfully, false if the hotel does not exist
+     */
     public boolean removeHotel(String name)
     {
         boolean success = false;
@@ -30,6 +43,10 @@ public class HRSystem
         return success;
     }
 
+    /**
+     * Displays high-level or low-level information about a specified hotel.
+     * @param name the name of the hotel to view
+     */
     public void viewHotel(String name)
     {
         int choice;
@@ -61,7 +78,12 @@ public class HRSystem
             }
         } while (choice != 3);
     }
-
+    
+    /**
+     * Manages a specified hotel, allowing the user to change the hotel name, add or remove rooms,
+     * update base room price, remove reservations, and remove hotels.
+     * @param name the name of the hotel to manage
+     */
     public void manageHotel(String name)
     {
         int choice;
@@ -69,17 +91,18 @@ public class HRSystem
         Scanner scanner = new Scanner(System.in);
         String inputName, buffer;
         double price;
+        boolean repeat = false;
 
         do
         {
-            System.out.println("1. Change hotel name");
-            System.out.println("2. Add room to hotel");
-            System.out.println("3. Remove room from hotel");
-            System.out.println("4. Update base price for a room");
-            System.out.println("5. Remove reservation");
-            System.out.println("6. Remove hotel");
-            System.out.println("7. Quit");
-
+            System.out.println("\n+-----------------------------------------------------+");
+            System.out.println("|                     MANAGE HOTEL                    |");
+            System.out.println("| 1. Change hotel name      4. Update room base price |");
+            System.out.println("| 2. Add hotel room         5. Remove reservation     |");
+            System.out.println("| 3. Remove hotel room      6. Remove hotel           |");
+            System.out.println("|             Press 0 to EXIT Manage Hotel            |");
+            System.out.println("+-----------------------------------------------------+\n");
+    
             System.out.print("Choice: ");
             choice = scanner.nextInt();
             buffer = scanner.nextLine();
@@ -87,7 +110,8 @@ public class HRSystem
             switch(choice)
             {
                 case 1:
-                System.out.print("Input new name: ");
+                
+                System.out.print("Input new hotel name: ");
                 inputName = scanner.nextLine();
 
                 if (findHotelByName(inputName) == null)
@@ -104,127 +128,185 @@ public class HRSystem
 
                 case 2:
 
-                System.out.print("Name of new room: ");
-                inputName = scanner.nextLine();
+                do {
+                    repeat = false;
+                    System.out.print("\nInput new room name: ");
+                    inputName = scanner.nextLine();
 
-                if (hotel.addRoom(inputName))
-                {
-                    System.out.println("Room successfully added.");
-                }
-                else
-                {
-                    System.out.println("Room already exists.");
-                }
+                    if (hotel.addRoom(inputName))
+                    {
+                        System.out.println("\nRoom successfully added.");
+                    }
+                    else
+                    {
+                        System.out.println("\nRoom already exists.");
+                    }
+
+                    do {
+                        System.out.println("Would you like to add another room?");
+                        System.out.println("(1) YES           (2) NO");
+                        System.out.print("Choice: ");
+                        choice = scanner.nextInt();
+                        buffer = scanner.nextLine(); // clear buffer
+                    } while (choice != 1 && choice != 2);
+
+                    if (choice == 1)
+                    {
+                        repeat = true;
+                    }
+                } while (repeat);
                 
                 break;
 
                 case 3:
 
-                System.out.print("Name of room: ");
-                inputName = scanner.nextLine();
+                do
+                {
+                    repeat = false;
+                    System.out.print("\nName of room: ");
+                    inputName = scanner.nextLine();
 
-                if (hotel.findRoomByName(inputName) != null)
-                {
-                    hotel.removeRoom(inputName);
-                    System.out.println("Room successfully removed.");
-                }
-                else
-                {
-                    System.out.println("Room does not exist.");
-                }
+                    if (hotel.findRoomByName(inputName) != null)
+                    {
+                        hotel.removeRoom(inputName);
+                        System.out.println("\nRoom successfully removed.");
+                    }
+                    else
+                    {
+                        System.out.println("\nRoom does not exist.");
+                    }
+
+                    do {
+                        System.out.println("Would you like to remove another room?");
+                        System.out.println("(1) YES           (2) NO");
+                        System.out.print("Choice: ");
+                        choice = scanner.nextInt();
+                        buffer = scanner.nextLine(); // clear buffer
+                    } while (choice != 1 && choice != 2);
+
+                    if (choice == 1)
+                    {
+                        repeat = true;
+                    }
+                } while (repeat);
                 
                 break;
 
                 case 4:
-
-                System.out.print("New base price: ");
-                price = scanner.nextDouble();
-                buffer = scanner.nextLine();
-
-                if (hotel.setBasePrice(price))
+                do
                 {
-                    System.out.println("Price successfully updated.");
-                }
-                else
-                {
-                    System.out.println("Price must be >= 100.");
-                }
+                    repeat = false;
+                    System.out.print("\nNew base price: ");
+                    price = scanner.nextDouble();
+                    buffer = scanner.nextLine();
+
+                    if (hotel.setBasePrice(price))
+                    {
+                        System.out.println("\nPrice successfully updated.");
+                    }
+                    else
+                    {
+                        System.out.println("\nPrice must be >= 100.");
+                        do {
+                            System.out.println("Would you like to set a new base price?");
+                            System.out.println("(1) YES           (2) NO");
+                            System.out.print("Choice: ");
+                            choice = scanner.nextInt();
+                            buffer = scanner.nextLine(); // clear buffer
+                        } while (choice != 1 && choice != 2);
+
+                        if (choice == 1)
+                        {
+                            repeat = true;
+                        }
+
+                    }
+                } while (repeat);
                 
                 break;
 
                 case 5:
 
-                ArrayList<Reservation> reservationList = hotel.filterReservationByName(name); 
+                ArrayList<Reservation> reservationList = new ArrayList<Reservation>(); 
                 Reservation deleteRes;
-                
                 int i;
-                System.out.println("Name of Guest: ");
-                name = scanner.nextLine();
 
-                System.out.println();
+                do
+                {
+                    repeat = false;
+                    System.out.print("\nName of Guest: ");
+                    name = scanner.nextLine();
+                    reservationList = hotel.filterReservationByName(name);
 
-                if (reservationList.size() == 0)
-                {
-                    System.out.println("No reservations.");
-                }
-                else
-                {
-                    System.out.println("List of reservations under guest: ");
                     System.out.println();
-                    System.out.println("NAME            Check-in date   Check-out date      Room ");
-                    for (i = 0; i < reservationList.size(); i++)
-                    {
-                        System.out.println(i + ". Name:           " + reservationList.get(i).getGuestName());
-                        System.out.println("   Check-in date:  " + reservationList.get(i).getCheckInDate());
-                        System.out.println("   Check-out date: " + reservationList.get(i).getCheckOutDate());
-                        System.out.println("   Room:           " + reservationList.get(i).getRoom().getName());
-                    }
 
-                    do
+                    if (reservationList.isEmpty())
                     {
-                        System.out.println("Reservation index (1-" + reservationList.size() + 1 + ") : ");
-                        choice = scanner.nextInt();
-                        buffer = scanner.nextLine();
-                    } while (choice < 1 || choice > reservationList.size() + 1 );
-
-                    deleteRes = reservationList.get(choice - 1);
-
-                    if (hotel.removeReservation(deleteRes.getGuestName(), deleteRes.getCheckInDate(), deleteRes.getCheckOutDate()))
-                    {
-                        System.out.println("Reservation successfully deleted!");
+                        System.out.println("\nNo reservations.");
                     }
                     else
                     {
-                        System.out.println("Error deleting reservation.");
-                    }
-                }   
+                        System.out.println("\nList of reservations under guest \"" + name + "\":");
+                        System.out.println();
+                        for (i = 0; i < reservationList.size(); i++)
+                        {
+                            System.out.println((i+1) + " - Check-in date:  " + reservationList.get(i).getCheckInDate());
+                            System.out.println("    Check-out date: " + reservationList.get(i).getCheckOutDate());
+                            System.out.println("    Room:           " + reservationList.get(i).getRoom().getName());
+                            System.out.println();
+                        }
+
+                        do
+                        {
+                            System.out.print("Reservation index (1-" + reservationList.size() + "): ");
+                            choice = scanner.nextInt();
+                            buffer = scanner.nextLine();
+                        } while (choice < 1 || choice > reservationList.size() + 1 );
+
+                        deleteRes = reservationList.get(choice - 1);
+
+                        if (hotel.removeReservation(deleteRes.getGuestName(), deleteRes.getCheckInDate(), deleteRes.getCheckOutDate()))
+                        {
+                            System.out.println("\nReservation successfully deleted!");
+                        }
+                        else
+                        {
+                            System.out.println("\nError deleting reservation.");
+                        }
+
+                        do {
+                            System.out.println("\nWould you like to remove another reservation?");
+                            System.out.println("(1) YES           (2) NO");
+                            System.out.print("Choice: ");
+                            choice = scanner.nextInt();
+                            buffer = scanner.nextLine(); // clear buffer
+                        } while (choice != 1 && choice != 2);
+
+                        if (choice == 1)
+                        {
+                            repeat = true;
+                        }
+                    } 
+                } while (repeat);  
 
                 break;
 
                 case 6:
-                
+  
                 do {
-                    System.out.println("Would you like to view the list of hotels?");
+                    System.out.println("\nWould you like to delete hotel \"" + name + "\"?");
                     System.out.println("(1) YES           (2) NO");
+                    System.out.print("Choice: ");
                     choice = scanner.nextInt();
                     buffer = scanner.nextLine(); // clear buffer
                 } while (choice != 1 && choice != 2);
 
                 if (choice == 1)
                 {
-                    printHotel();
-                }
-                
-                System.out.print("Select hotel: ");
-                name = scanner.nextLine();
-
-                if (removeHotel(name))
-                {
-                    System.out.println("Hotel successfully deleted");
-                }
-                else
-                {
-                    System.out.println("Error. Hotel does not exist.");
+                    if (removeHotel(name))
+                    {
+                        System.out.println("\nHotel successfully deleted");
+                    }
                 }
 
                 break;
@@ -233,9 +315,13 @@ public class HRSystem
                 
                 break;
             }
-        } while (choice != 7);
+        } while (choice != 0);
     }
 
+    /**
+     * Simulates the booking process for a guest.
+     * @return true if the booking is successful, false otherwise
+     */
     public boolean simulateBooking()
     {
         Scanner scanner = new Scanner(System.in);
@@ -245,22 +331,17 @@ public class HRSystem
         String buffer;
         boolean success = false;
         
-        System.out.println("Available Hotels: ");
-        for (Hotel hotel : hotelList)
-        {
-            System.out.println(hotel.getName()); // baka pwedeng gumawa pa ng method para yung mga hindi fully booked lang ipprint
-        }
-        System.out.println("\n\n");
+        printHotel();
 
         do
         {
-            System.out.print("Select hotel: ");
+            System.out.print("\nSelect hotel: ");
             hotelName = scanner.nextLine();
             chosenHotel = findHotelByName(hotelName);
 
             if (chosenHotel == null)
             {
-                System.out.println("Invalid hotel. Please try again.");
+                System.out.println("\nInvalid hotel. Please try again.\n");
             }
         } while (chosenHotel == null);
 
@@ -268,7 +349,7 @@ public class HRSystem
         {
             do
             {
-                System.out.print("Check in date: ");
+                System.out.print("\nCheck in date: ");
                 checkInDate = scanner.nextInt();
                 buffer = scanner.nextLine();
 
@@ -280,7 +361,7 @@ public class HRSystem
             
             do
             {
-                System.out.print("Check out date: ");
+                System.out.print("\nCheck out date: ");
                 checkOutDate = scanner.nextInt();
                 buffer = scanner.nextLine();
 
@@ -293,7 +374,7 @@ public class HRSystem
 
             if (checkInDate == checkOutDate)
             {
-                System.out.println("Check-in and check-out dates must not be the same.");
+                System.out.println("\nCheck-in and check-out dates must not be the same.");
             }
 
         } while (checkInDate == checkOutDate);
@@ -301,7 +382,7 @@ public class HRSystem
 
         if (chosenHotel.getAvailableRooms(checkInDate, checkOutDate) > 0)
         {
-            System.out.print("Guest name: ");
+            System.out.print("\nGuest name: ");
             guestName = scanner.nextLine();
             
             chosenHotel.createReservation(guestName, checkInDate, checkOutDate);
@@ -309,12 +390,17 @@ public class HRSystem
         }
         else
         {
-            System.out.println("No room available. ");
+            System.out.println("\nNo room available. ");
         }
 
         return success;
     }
 
+    /**
+     * Finds a hotel by its name.
+     * @param name the name of the hotel to find
+     * @return the hotel with the specified name, or null if no such hotel exists
+     */
     public Hotel findHotelByName(String name)
     {
         for (Hotel hotel : this.hotelList)
@@ -328,10 +414,13 @@ public class HRSystem
         return null;
     }
 
+    /**
+     * Prints the list of existing hotels.
+     */
     public void printHotel()
     {
         int i;
-        System.out.println("- List of Existing Hotels -");
+        System.out.println("\n- List of Existing Hotels -");
         for (i = 0; i < hotelList.size(); i++)
         {
             System.out.println((i + 1) + ". " + hotelList.get(i).getName());
