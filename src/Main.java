@@ -2,16 +2,16 @@ import java.util.Scanner;
 
 public class Main
 {
+    private static Scanner scanner = new Scanner(System.in);
+    
     public static void main (String[] args)
     {
-        Scanner scanner = new Scanner(System.in);
         HRSystem system = new HRSystem();
         int choice;
 
         String name;
 
-
-        do
+        do 
         {
             System.out.println("              HOTEL RESERVATION SYSTEM");
             System.out.println("+-----------------------------------------------------+");
@@ -19,11 +19,10 @@ public class Main
             System.out.println("| 2. View Hotel                       4. Book Hotel   |");
             System.out.println("|               Press 0 to QUIT SYSTEM                |");
             System.out.println("+-----------------------------------------------------+");
-
             System.out.print("Select: ");
             choice = scanner.nextInt();
             name = scanner.nextLine(); // clear buffer lang
-
+            
             System.out.print("");
 
             switch(choice)
@@ -66,6 +65,7 @@ public class Main
                 
                 break;
 
+
                 case 2:
 
                 System.out.println("+-----------------------------------------------------+");
@@ -89,19 +89,20 @@ public class Main
                     System.out.print("Name of hotel: ");
                     name = scanner.nextLine();
 
-                    if (system.findHotelByName(name) == null);
+                    if (system.findHotelByName(name) == null)
                     {
                         System.out.println("null dapat - Hotel not found. Try again.");
                     }
 
                 } while (system.findHotelByName(name) == null);
 
-                
-
-
                 system.viewHotel(name); 
+
+                
                 
                 break;
+
+
 
                 case 3: 
 

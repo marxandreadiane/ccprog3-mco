@@ -8,108 +8,21 @@ public class Hotel
     private ArrayList<Room> roomList = new ArrayList<Room>();
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
 
+    // CONSTRUCTOR
+    /**
+     * Constructs a Hotel with the specified name, with an empty array of rooms and reservations
+     * @param name the name of the hotel
+     */
     public Hotel(String name)
     {
         this.name = name;
     }
 
+
+    // GETTERS and SETTERS
     public String getName()
     {
         return this.name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public boolean addRoom(String name)
-    {
-        boolean success = false;
-
-        if (findRoomByName(name) == null)
-        {
-            roomList.add(new Room(name));
-            success = true;
-        }
-
-        return success;
-    }
-
-    public boolean removeRoom(String name)
-    {
-        boolean success = false;
-        
-        if (findRoomByName(name) != null)
-        {
-            roomList.remove(findRoomByName(name));
-            success = true;
-        }
-        return success;
-    }
-
-    public boolean createReservation(String guestName, int checkInDate, int checkOutDate)
-    {
-        Reservation reservation;
-        boolean success = false;
-        int i = 0;
-
-        while (!success && i < roomList.size())
-        {
-            if (roomList.get(i).getAvailability(checkInDate, checkOutDate))
-            {
-                reservation = new Reservation(guestName, checkInDate, checkOutDate);
-                reservation.setRoom(roomList.get(i));
-                
-                reservationList.add(reservation);
-                success = true;
-            }
-            i++;
-        }
-        
-        return true;
-    }
-
-
-    public boolean removeReservation(String guestName, int checkInDate, int checkOutDate)
-    {
-        boolean success = false;
-        int i = 0;
-
-        for (Reservation reservation : reservationList)
-        {
-            if (reservation.getGuestName().equals(guestName)
-                && reservation.getCheckInDate() == checkInDate
-                && reservation.getCheckOutDate() == checkOutDate
-                && !success)
-            {
-                reservationList.remove(i);
-                success = true;
-            }
-            i++;
-        }
-        
-        return success;
-    }
-
-
-    public boolean setBasePrice(double price)
-    {
-        boolean success = true;
-
-        if (price >= 100)
-        {
-            for (Room room : roomList)
-            {
-                room.setPrice(price);
-            }
-        }
-        else
-        {
-            success = false;
-        }
-
-        return success;
     }
 
     public void getHighLevel()
@@ -203,6 +116,11 @@ public class Hotel
 
         return total;
     }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
     public int getAvailableRooms(int checkInDate, int checkOutDate)
     {
@@ -231,7 +149,7 @@ public class Hotel
         }
         return nRooms;
     }
-    
+
     private int getBookedRooms(int date)
     {
         int nRooms = 0;
@@ -246,6 +164,95 @@ public class Hotel
         return nRooms;
     }
 
+    public boolean setBasePrice(double price)
+    {
+        boolean success = true;
+
+        if (price >= 100)
+        {
+            for (Room room : roomList)
+            {
+                room.setPrice(price);
+            }
+        }
+        else
+        {
+            success = false;
+        }
+
+        return success;
+    }
+
+    // ADD or DELETE METHODS
+    public boolean addRoom(String name)
+    {
+        boolean success = false;
+
+        if (findRoomByName(name) == null)
+        {
+            roomList.add(new Room(name));
+            success = true;
+        }
+
+        return success;
+    }
+
+    public boolean removeRoom(String name)
+    {
+        boolean success = false;
+        
+        if (findRoomByName(name) != null)
+        {
+            roomList.remove(findRoomByName(name));
+            success = true;
+        }
+        return success;
+    }
+
+    public boolean createReservation(String guestName, int checkInDate, int checkOutDate)
+    {
+        Reservation reservation;
+        boolean success = false;
+        int i = 0;
+
+        while (!success && i < roomList.size())
+        {
+            if (roomList.get(i).getAvailability(checkInDate, checkOutDate))
+            {
+                reservation = new Reservation(guestName, checkInDate, checkOutDate);
+                reservation.setRoom(roomList.get(i));
+                
+                reservationList.add(reservation);
+                success = true;
+            }
+            i++;
+        }
+        
+        return true;
+    }
+
+    public boolean removeReservation(String guestName, int checkInDate, int checkOutDate)
+    {
+        boolean success = false;
+        int i = 0;
+
+        for (Reservation reservation : reservationList)
+        {
+            if (reservation.getGuestName().equals(guestName)
+                && reservation.getCheckInDate() == checkInDate
+                && reservation.getCheckOutDate() == checkOutDate
+                && !success)
+            {
+                reservationList.remove(i);
+                success = true;
+            }
+            i++;
+        }
+        
+        return success;
+    }
+
+    // SEARCH METHODS
     public Room findRoomByName(String name)
     {
         for (Room room : roomList)
