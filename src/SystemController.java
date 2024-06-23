@@ -421,7 +421,6 @@ public class SystemController {
         } while ((checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate));
 
 
-
         if (selectedHotel.getAvailableRooms(checkInDate, checkOutDate) > 0)
         {
             System.out.println("\nRoom available!");
@@ -514,6 +513,10 @@ public class SystemController {
                         do
                         {
                             date = systemView.promptInt("Select date: ");
+                            if (date > 31 || date < 1)
+                            {
+                                System.out.println("Invalid date. Try again.");
+                            }
                         } while (date > 31 || date < 1);
         
                         System.out.println("Total number of available rooms: " + selectedHotel.getAvailableRooms(date));
@@ -534,17 +537,21 @@ public class SystemController {
                     {
                         tryAgain = false;
 
+                        choice = systemView.promptYN("\nWould you like to see the list of rooms?");
+                        if (choice == 1)
+                        {
+                            System.out.println("\nList of rooms: ");
+                            displayRoomList(selectedHotel.getRoomList());
+                        }
+                            
                         do
                         {
-                            choice = systemView.promptYN("\nWould you like to see the list of rooms?");
-                            if (choice == 1)
-                            {
-                                System.out.println("\nList of rooms: ");
-                                displayRoomList(selectedHotel.getRoomList());
-                            }
-                            
                             name = systemView.promptName("Enter the name of the room: ");
                             selectedRoom = selectedHotel.findRoomByName(name);
+                            if (selectedRoom == null)
+                            {
+                                System.out.println("Room not found. Try again.");
+                            }
                         } while (selectedRoom == null);
         
                         System.out.println("Room name: " + selectedRoom.getName());
@@ -586,7 +593,11 @@ public class SystemController {
                             do
                             {
                                 choice = systemView.promptInt("Select reservation index (1-" + reservationList.size() + "): ");
-                            } while (choice < 1 || choice > reservationList.size() + 1 );
+                                if (choice < 1 || choice > reservationList.size() + 1)
+                                {
+                                    System.out.println("Invalid index. Try again.");
+                                }
+                            } while (choice < 1 || choice > reservationList.size() + 1);
 
                             checkRes = reservationList.get(choice - 1);
 
