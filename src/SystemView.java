@@ -47,6 +47,14 @@ public class SystemView {
         return number;
     }
 
+    public double promptDouble(String message) 
+    {
+        System.out.print(message);
+        double number = scanner.nextDouble();
+        scanner.nextLine();
+        return number;
+    }
+
     // MAIN MENU and MAIN FUNCTIONALITIES' DISPLAY METHODS
     public void displayWelcomeMessage() 
     {

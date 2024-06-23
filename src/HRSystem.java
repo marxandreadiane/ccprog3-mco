@@ -1,12 +1,10 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
  * Represents a Hotel Reservation System that manages multiple hotels.
  */
-public class HRSystem
-{
-    private static Scanner scanner = new Scanner(System.in);
+public class HRSystem {
+
     private ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
 
     // CONSTRUCTOR - none; is set to default HRSystem().
