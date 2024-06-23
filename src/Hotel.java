@@ -42,6 +42,25 @@ public class Hotel
     }
 
     /**
+     * Gets the number of rooms in the hotel
+     * @param date the date to check bookings
+     * @return the number of booked rooms
+     */
+    public int getNumberOfRooms()
+    {
+        return roomList.size();
+    }
+
+    /**
+     * 
+     * @param name
+     */
+    public ArrayList<Reservation> getReservationList()
+    {
+        return this.reservationList;
+    }
+
+    /**
      * Sets the name of this hotel.
      * @param name the new name of this hotel
      */
@@ -50,6 +69,29 @@ public class Hotel
         this.name = name;
     }
 
+    /**
+     * Sets the base price for all rooms in this hotel.
+     * @param price the base price to set
+     * @return true if the price is set successfully, false if the price is less than 100
+     */
+    public boolean setBasePrice(double price)
+    {
+        boolean success = true;
+
+        if (price >= 100)
+        {
+            this.basePrice = price;
+        }
+        else
+        {
+            success = false;
+        }
+
+        return success;
+    }
+
+    
+    // SPECIFIC GETTERS FOR HIGH AND LOW LEVEL DATA
     /**
      * Gets the number of available rooms for a given date range.
      * @param checkInDate the check-in date
@@ -75,7 +117,7 @@ public class Hotel
      * @param date the date to check availability
      * @return the number of available rooms
      */
-    private int getAvailableRooms(int date)
+    public int getAvailableRooms(int date)
     {
         int nRooms = 0;
 
@@ -94,7 +136,7 @@ public class Hotel
      * @param date the date to check bookings
      * @return the number of booked rooms
      */
-    private int getBookedRooms(int date)
+    public int getBookedRooms(int date)
     {
         int nRooms = 0;
 
@@ -108,34 +150,6 @@ public class Hotel
         return nRooms;
     }
 
-    public int getNumberOfRooms()
-    {
-        return roomList.size();
-    }
-
-    /**
-     * Sets the base price for all rooms in this hotel.
-     * @param price the base price to set
-     * @return true if the price is set successfully, false if the price is less than 100
-     */
-    public boolean setBasePrice(double price)
-    {
-        boolean success = true;
-
-        if (price >= 100)
-        {
-            this.basePrice = price;
-        }
-        else
-        {
-            success = false;
-        }
-
-        return success;
-    }
-
-
-    // ADVANCED GETTERS
     /**
      * Gets the total estimated earnings from all reservations.
      * @return the total earnings from reservations
@@ -163,80 +177,6 @@ public class Hotel
 
         System.out.println(hotelInformation);
     }
-
-    /**
-     * Provides a menu for low-level hotel information.
-     */
-    public void getLowLevel()
-    {
-        //String hotelInformation;
-        int choice, date, i;
-        String name, buffer;
-        Room selectedRoom;
-
-        do
-        {
-            System.out.println("1. Hotel availability");
-            System.out.println("2. Room information");
-            System.out.println("3. Reservation information");
-            System.out.println("4. Quit");
-            System.out.println("\n");
-
-            System.out.print("Choice: ");
-            choice = scanner.nextInt();
-
-            switch(choice)
-            {
-                case 1: 
-                do
-                {
-                    System.out.print("Select date: ");
-                    date = scanner.nextInt();
-                    buffer = scanner.nextLine();
-                } while (date > 31 || date < 1);
-
-                System.out.println("Total number of available rooms: " + getAvailableRooms(date));
-                System.out.println("Total number of booked rooms: " + getBookedRooms(date));
-                break;
-
-                case 2: 
-     
-                do
-                {
-                    System.out.print("Select room: ");
-                    name = scanner.nextLine();
-                    selectedRoom = findRoomByName(name);
-                } while (selectedRoom == null);
-
-                System.out.println("Room name: " + selectedRoom.getName());
-                System.out.println("Room price per night " + selectedRoom.getName());
-                System.out.print("Available dates: ");
-                selectedRoom.printAvailableDates();
-                break;
-                
-
-                case 3: 
-
-                System.out.print("Input name of guest: ");
-                name = scanner.nextLine();
-
-                for (Reservation reservation : reservationList)
-                {
-                    i = 0;
-                    if (reservation.getGuestName().equals(name))
-                    {
-                        reservationList.get(i).printReservationInfo();
-                    }
-                    i++;
-                }
-
-                break;
-
-                default: break;
-            }
-        } while (choice != 4);
-    }
-
     
     
     // ADD or DELETE METHODS

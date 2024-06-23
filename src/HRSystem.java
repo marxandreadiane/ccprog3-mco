@@ -6,9 +6,27 @@ import java.util.ArrayList;
  */
 public class HRSystem
 {
+    private static Scanner scanner = new Scanner(System.in);
     private ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
 
-    // CONSTRUCTOR - none; is set to default.
+    // CONSTRUCTOR - none; is set to default HRSystem().
+
+    // SPECIFIC GETTERS/FINDERS
+    /**
+     * Get a Hotel object with the specified name.
+     * @param name the name of hotel being searched
+     * @return Hotel object with same name if found, null otherwise
+     */
+    public Hotel getHotel(String name) 
+    {
+        for (Hotel hotel : this.hotelList) {
+            if (hotel.getName().equals(name)) {
+                return hotel;
+            }
+        }
+        return null;
+    }
+
 
     // ADD, REMOVE and SEARCH HOTEL METHODS
     /**
@@ -74,43 +92,6 @@ public class HRSystem
         }
         System.out.println("- - - - END OF LIST - - - -");
     }
-
-
-    /**
-     * Displays high-level or low-level information about a specified hotel.
-     * @param name the name of the hotel to view
-     */
-    public void viewHotel(String name)
-    {
-        int choice;
-        Hotel hotel = findHotelByName(name);
-        Scanner scanner = new Scanner(System.in);
-        String buffer;
-
-        do
-        {
-            System.out.println("1. High-level information");
-            System.out.println("2. Low-level information");
-            System.out.println("3. Quit");
-
-            System.out.print("Choice: ");
-            choice = scanner.nextInt();
-            buffer = scanner.nextLine();
-
-            switch(choice)
-            {
-                case 1:
-                hotel.getHighLevel();
-                break;
-
-                case 2:
-                hotel.getLowLevel();
-                break;
-                
-                default: break;
-            }
-        } while (choice != 3);
-    }
     
     /**
      * Manages a specified hotel, allowing the user to change the hotel name, add or remove rooms,
@@ -121,20 +102,13 @@ public class HRSystem
     {
         int choice;
         Hotel hotel = findHotelByName(name);
-        Scanner scanner = new Scanner(System.in);
         String inputName, buffer;
         double price;
         boolean repeat = false;
 
         do
         {
-            System.out.println("\n+-----------------------------------------------------+");
-            System.out.println("|                     MANAGE HOTEL                    |");
-            System.out.println("| 1. Change hotel name      4. Update room base price |");
-            System.out.println("| 2. Add hotel room         5. Remove reservation     |");
-            System.out.println("| 3. Remove hotel room      6. Remove hotel           |");
-            System.out.println("|             Press 0 to EXIT Manage Hotel            |");
-            System.out.println("+-----------------------------------------------------+\n");
+            
     
             System.out.print("Choice: ");
             choice = scanner.nextInt();
@@ -146,6 +120,7 @@ public class HRSystem
                 
                 System.out.print("Input new hotel name: ");
                 inputName = scanner.nextLine();
+                // name = systemView.promptName("...")
 
                 if (findHotelByName(inputName) == null)
                 {

@@ -9,8 +9,9 @@ public class Main
 
         do 
         {
-            // Display Main Menu
-            choice = systemView.promptMainMenu();
+            systemView.displayMainMenu();
+            choice = systemView.promptInt("Select: ");
+
             switch(choice)
             {
                 case 0:
@@ -34,6 +35,8 @@ public class Main
                     break;
 
                 default:
+                    System.out.println("Invalid response! Please enter to continue.");
+                    systemView.buffer();
                     break;
             }
         } while (choice != 0);
