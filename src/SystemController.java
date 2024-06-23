@@ -15,7 +15,7 @@ public class SystemController {
     // MAIN METHODS
     public void createHotel() 
     {
-        int choice;
+        int choice, numOfRooms;
         boolean tryAgain;
         do
         {
@@ -24,9 +24,25 @@ public class SystemController {
             systemView.displayCreateHotelMenu();
             String name = systemView.promptName("Name of the new hotel: ");
 
-            if (system.createHotel(name))
+            do
+            {
+                numOfRooms = systemView.promptInt("\nHow many rooms would you like to have?");
+
+                if (numOfRooms > 50)
+                {
+                    System.out.println("Number exceeds the maximum count. Enter another number.");
+                }
+                else if (numOfRooms < 0)
+                {
+                    System.out.println("Number is invalid. Enter another number.");
+                }
+            } while (numOfRooms < 0 || numOfRooms > 50);
+
+
+            if (system.createHotel(name, numOfRooms))
             {
                 System.out.println("\nHotel successfully created!\n");
+                
                 do
                 {
                     choice = systemView.promptYN("Would you like to create another hotel?");
