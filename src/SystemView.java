@@ -28,9 +28,17 @@ public class SystemView {
 
     public String promptName(String message) 
     {
-        System.out.println(message);
+        System.out.print(message);
         String name = scanner.nextLine();
         return name;
+    }
+
+    public int promptInt(String message) 
+    {
+        System.out.print(message);
+        int number = scanner.nextInt();
+        scanner.nextLine();
+        return number;
     }
 
     // SPECIFIC PRINT AND PROMPT METHODS
@@ -49,6 +57,7 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
         System.out.print("Select: ");
         int choice = scanner.nextInt();
+        scanner.nextLine();
         return choice;
     }
 
