@@ -13,6 +13,10 @@ public class Main
             choice = systemView.promptMainMenu();
             switch(choice)
             {
+                case 0:
+                    System.out.println("Thank you for using Hotel Reservation System!");
+                    break;
+                
                 case 1: 
                     systemController.createHotel();
                     break;
@@ -20,7 +24,6 @@ public class Main
                 case 2:
                     systemController.viewHotel();
                     break;
-
 
                 case 3: 
                     systemController.manageHotel();
@@ -31,7 +34,6 @@ public class Main
                     break;
 
                 default:
-                    System.out.println("Thank you for using Hotel Reservation System!");
                     break;
             }
         } while (choice != 0);
