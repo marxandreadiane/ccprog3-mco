@@ -16,16 +16,15 @@ public class HRSystem
      * @param name the name of the new hotel
      * @return true if the hotel is created successfully, false if the hotel already exists
      */
-    public boolean createHotel(String name)
+    public boolean createHotel(String name, int numOfRooms)
     {
         boolean success = false;
 
         if (findHotelByName(name) == null)
         {
-            hotelList.add(new Hotel(name));
+            hotelList.add(new Hotel(name, numOfRooms));
             success = true;
         }
-
         return success;
     }
 
@@ -163,18 +162,29 @@ public class HRSystem
                 case 2:
 
                 do {
+                    int i;
                     repeat = false;
-                    System.out.print("\nInput new room name: ");
-                    inputName = scanner.nextLine();
+                    do
+                    {
+                        System.out.print("\nHow many rooms would you like to add?");
+                        choice = scanner.nextInt();
+                        buffer = scanner.nextLine();
 
-                    if (hotel.addRoom(inputName))
+                        if (choice > 50 - hotel.getNumberOfRooms())
+                        {
+                            System.out.println("Number exceeds the maximum count. Enter another number.");
+                        }
+                        else if (choice < 0)
+                        {
+                            System.out.println("Number is invalid. Enter another number.");
+                        }
+                    } while (choice < 0 || choice > 50 - hotel.getNumberOfRooms());
+
+                    for (i = 0; i < choice; i++)
                     {
-                        System.out.println("\nRoom successfully added.");
+                        hotel.addRoom();
                     }
-                    else
-                    {
-                        System.out.println("\nRoom already exists.");
-                    }
+                    System.out.println("\nRoom successfully added.");
 
                     do {
                         System.out.println("Would you like to add another room?");
