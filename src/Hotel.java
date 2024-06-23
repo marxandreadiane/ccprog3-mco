@@ -42,9 +42,8 @@ public class Hotel
     }
 
     /**
-     * Gets the number of rooms in the hotel
-     * @param date the date to check bookings
-     * @return the number of booked rooms
+     * Gets the number of rooms in this hotel
+     * @return the number of rooms
      */
     public int getNumberOfRooms()
     {
@@ -52,12 +51,30 @@ public class Hotel
     }
 
     /**
-     * 
-     * @param name
+     * Gets the list of rooms in this hotel
+     * @return the list of rooms
+     */
+    public ArrayList<Room> getRoomList()
+    {
+        return this.roomList;
+    }
+
+    /**
+     * Gets the list of reservations in this hotel
+     * @return the reservation list of this hotel
      */
     public ArrayList<Reservation> getReservationList()
     {
         return this.reservationList;
+    }
+
+    /**
+     * Gets the base price of the rooms in this hotel
+     * @return the base price of the rooms
+     */
+    public double getBasePrice()
+    {
+        return this.basePrice;
     }
 
     /**
