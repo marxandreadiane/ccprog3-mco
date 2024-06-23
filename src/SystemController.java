@@ -402,31 +402,24 @@ public class SystemController {
         System.out.println();
 
         // Getting valid check-in and check-out dates
-        do 
+        do
         {
-            do
+            checkInDate = systemView.promptInt("Check-in date: ");
+            if (checkInDate >= 31 || checkInDate <= 0)
             {
-                checkInDate = systemView.promptInt("Check-in date: ");
-                if (checkInDate >= 31 || checkInDate <= 0)
-                {
-                    System.out.println("Invalid date. Try again.");
-                }
+                System.out.println("Invalid date. Try again.");
+            }
             } while ((checkInDate >= 31 || checkInDate <= 0));
 
-            do
+        do
+        {
+            checkOutDate = systemView.promptInt("Check-out date: ");
+            if (checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate)
             {
-                checkOutDate = systemView.promptInt("Check-out date: ");
-                if (checkOutDate >= 32 || checkOutDate <= 1)
-                {
-                    System.out.println("Invalid date. Try again.");
-                }
-            } while ((checkOutDate >= 32 || checkOutDate <= 1));
-
-            if (checkInDate == checkOutDate)
-            {
-                System.out.println("\nCheck-in and check-out dates must not be the same.");
+                System.out.println("Invalid date. Try again.");
             }
-        } while (checkInDate == checkOutDate);
+        } while ((checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate));
+
 
 
         if (selectedHotel.getAvailableRooms(checkInDate, checkOutDate) > 0)
