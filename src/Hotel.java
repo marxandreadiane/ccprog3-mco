@@ -11,28 +11,23 @@ public class Hotel
     private String name;
     private ArrayList<Room> roomList = new ArrayList<Room>();
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
-    /*
-     * A1-10
-     * int highest number = 10
-     * int num of room = 10 - 1 = 9
-     */
+    private int roomNumber = 1;
     private double basePrice = 1299.00;
 
     // CONSTRUCTOR
     /**
-     * Constructs a Hotel with the specified name, with an empty array of rooms and reservations
+     * Constructs a Hotel with the specified name, specified number of rooms and an empty list of reservations
      * @param name the name of the hotel
-     */
-    public Hotel(String name)
-    {
-        this.name = name;
-        // isang room
-    }
-
-    
+     */    
     public Hotel(String name, int numOfRooms)
     {
-
+        int i;
+        
+        this.name = name;
+        for (i = 0; i < numOfRooms; i++)
+        {
+            addRoom();
+        }
     }
 
 
@@ -111,6 +106,11 @@ public class Hotel
             }
         }
         return nRooms;
+    }
+
+    public int getNumberOfRooms()
+    {
+        return roomList.size();
     }
 
     /**
@@ -245,16 +245,18 @@ public class Hotel
      * @param name the name of the room to add
      * @return true if the room is added successfully, false if the room already exists
      */
-    public boolean addRoom(String name)
+    public boolean addRoom()
     {
         boolean success = false;
+        String name = getName().charAt(0) + String.format("%02d", this.roomNumber);
 
-        if (findRoomByName(name) == null)
+        if (roomList.size() < 50)
         {
             roomList.add(new Room(name));
             success = true;
         }
 
+        this.roomNumber++;
         return success;
     }
 
