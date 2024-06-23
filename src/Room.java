@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Room
 {
     private String name;
-    private double price = 1299.0;
     private ArrayList<Integer> reservedDates = new ArrayList<Integer>();
 
+    // CONSTRUCTORS
     /**
      * Constructs a Room with the specified name.
      * @param name the name of the room
@@ -18,6 +18,7 @@ public class Room
         this.name = name;
     }
 
+    // GETTERS AND SETTERS
     /**
      * Gets the name of this room.
      * @return the name of this room
@@ -27,24 +28,7 @@ public class Room
         return this.name;
     }
 
-    /**
-     * Gets the price of this room.
-     * @return the price of this room
-     */
-    public double getPrice()
-    {
-        return this.price;
-    }
-
-    /**
-     * Sets the price of this room.
-     * @param price the new price of this room
-     */
-    public void setPrice(double price)
-    {
-        this.price = price;
-    }
-
+    // AVAILABILITY METHODS
     /**
      * Checks if this room is available on the given date.
      * @param checkInDate the date to check availability for

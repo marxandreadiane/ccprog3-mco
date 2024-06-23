@@ -6,9 +6,17 @@ import java.util.Scanner;
  */
 public class Hotel
 {
+    private static Scanner scanner = new Scanner(System.in);
+
     private String name;
     private ArrayList<Room> roomList = new ArrayList<Room>();
     private ArrayList<Reservation> reservationList = new ArrayList<Reservation>();
+    /*
+     * A1-10
+     * int highest number = 10
+     * int num of room = 10 - 1 = 9
+     */
+    private double basePrice = 1299.00;
 
     // CONSTRUCTOR
     /**
@@ -18,10 +26,17 @@ public class Hotel
     public Hotel(String name)
     {
         this.name = name;
+        // isang room
+    }
+
+    
+    public Hotel(String name, int numOfRooms)
+    {
+
     }
 
 
-    // GETTERS and SETTERS
+    // BASE GETTERS and SETTERS
     /**
      * Gets the name of this hotel.
      * @return the name of this hotel
@@ -38,22 +53,6 @@ public class Hotel
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    /**
-     * Gets the total estimated earnings from all reservations.
-     * @return the total earnings from reservations
-     */
-    private double getTotalReservation()
-    {
-        double total = 0;
-
-        for (Reservation reservation : reservationList)
-        {
-            total += reservation.getTotal();
-        }
-
-        return total;
     }
 
     /**
@@ -125,10 +124,7 @@ public class Hotel
 
         if (price >= 100)
         {
-            for (Room room : roomList)
-            {
-                room.setPrice(price);
-            }
+            this.basePrice = price;
         }
         else
         {
@@ -136,6 +132,23 @@ public class Hotel
         }
 
         return success;
+    }
+
+
+    // ADVANCED GETTERS
+    /**
+     * Gets the total estimated earnings from all reservations.
+     * @return the total earnings from reservations
+     */
+    private double getTotalReservationEarnings()
+    {
+        double total = 0;
+        for (Reservation reservation : reservationList)
+        {
+            total += (reservation.getCheckOutDate() - reservation.getCheckInDate()) * this.basePrice;
+        }
+
+        return total;
     }
 
     /**
@@ -146,7 +159,7 @@ public class Hotel
     {
         String hotelInformation = "Hotel Name: " + getName() + 
                                 "\nTotal Number of Rooms: " + roomList.size() +
-                                "\nEstimated earnings for the month: " + getTotalReservation();
+                                "\nEstimated earnings for the month: " + getTotalReservationEarnings();
 
         System.out.println(hotelInformation);
     }
@@ -157,7 +170,6 @@ public class Hotel
     public void getLowLevel()
     {
         //String hotelInformation;
-        Scanner scanner = new Scanner(System.in);
         int choice, date, i;
         String name, buffer;
         Room selectedRoom;
@@ -225,6 +237,8 @@ public class Hotel
         } while (choice != 4);
     }
 
+    
+    
     // ADD or DELETE METHODS
     /**
      * Adds a room to this hotel.

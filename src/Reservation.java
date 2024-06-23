@@ -7,8 +7,8 @@ public class Reservation
     private int checkInDate;
     private int checkOutDate;
     private Room room;
-    private double total;
 
+    // CONSTRUCTORS
     /**
      * Constructs a Reservation with the provided guest name, check-in date, and check-out date.
      * @param guestName the name of the guest
@@ -22,6 +22,7 @@ public class Reservation
         this.checkOutDate = checkOutDate;
     }
 
+    // GETTERS AND SETTERS
     /**
      * Gets the name of the guest.
      * @return the guest's name
@@ -67,14 +68,6 @@ public class Reservation
         this.room = room;
     }
 
-    /**
-     * Gets the total price for this reservation.
-     * @return the total price
-     */
-    public double getTotal()
-    {
-        return (this.checkOutDate - this.checkInDate) * this.room.getPrice();
-    }
 
     /**
      * Prints information about this reservation.
@@ -85,7 +78,5 @@ public class Reservation
         System.out.print("Room information: " + getRoom().getName());
         System.out.print("Check-in date: " + getCheckInDate());
         System.out.println("Check-out date: " + getCheckOutDate());
-        System.out.println("Total price: " + getTotal());
-        System.out.println("Price per night: " + getRoom().getPrice());
     }
 }

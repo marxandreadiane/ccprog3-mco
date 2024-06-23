@@ -8,6 +8,9 @@ public class HRSystem
 {
     private ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
 
+    // CONSTRUCTOR - none; is set to default.
+
+    // ADD, REMOVE and SEARCH HOTEL METHODS
     /**
      * Creates a new hotel with the specified name.
      * @param name the name of the new hotel
@@ -34,7 +37,6 @@ public class HRSystem
     public boolean removeHotel(String name)
     {
         boolean success = false;
-        
         if (findHotelByName(name) != null)
         {
             hotelList.remove(findHotelByName(name));
@@ -42,6 +44,38 @@ public class HRSystem
         }
         return success;
     }
+
+    /**
+     * Finds a hotel by its name.
+     * @param name the name of the hotel to find
+     * @return the hotel with the specified name, or null if no such hotel exists
+     */
+    public Hotel findHotelByName(String name)
+    {
+        for (Hotel hotel : this.hotelList)
+        {
+            if (hotel.getName().equals(name))
+            {
+                return hotel;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Prints the list of existing hotels.
+     */
+    public void printHotel()
+    {
+        int i;
+        System.out.println("\n- List of Existing Hotels -");
+        for (i = 0; i < hotelList.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + hotelList.get(i).getName());
+        }
+        System.out.println("- - - - END OF LIST - - - -");
+    }
+
 
     /**
      * Displays high-level or low-level information about a specified hotel.
@@ -396,35 +430,4 @@ public class HRSystem
         return success;
     }
 
-    /**
-     * Finds a hotel by its name.
-     * @param name the name of the hotel to find
-     * @return the hotel with the specified name, or null if no such hotel exists
-     */
-    public Hotel findHotelByName(String name)
-    {
-        for (Hotel hotel : this.hotelList)
-        {
-            if (hotel.getName().equals(name))
-            {
-                return hotel;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Prints the list of existing hotels.
-     */
-    public void printHotel()
-    {
-        int i;
-        System.out.println("\n- List of Existing Hotels -");
-        for (i = 0; i < hotelList.size(); i++)
-        {
-            System.out.println((i + 1) + ". " + hotelList.get(i).getName());
-        }
-        System.out.println("- - - - END OF LIST - - - -");
-    }
 }
