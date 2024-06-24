@@ -348,7 +348,7 @@ public class SystemController {
                             choice = systemView.promptYN("Remove reservation?");
                             if (choice == 1)
                             {
-                                selectedHotel.removeReservation(deleteRes.getGuestName(), deleteRes.getCheckInDate(), deleteRes.getCheckOutDate());
+                                selectedHotel.removeReservation(deleteRes.getGuestName(), deleteRes.getCheckInDate(), deleteRes.getCheckOutDate(), deleteRes.getRoom());
                                 System.out.println("\nReservation successfully deleted!");
                             }
                             else
@@ -395,7 +395,8 @@ public class SystemController {
     public void simulateBooking() 
     {
         Hotel selectedHotel;
-        ArrayList<Room> roomList = new ArrayList<Room>();
+        ArrayList<String> roomList = new ArrayList<String>();
+        Room selectedRoom;
         int checkInDate, checkOutDate, choice;
         String guestName, roomName;
         boolean tryAgain;
@@ -446,11 +447,11 @@ public class SystemController {
                 do
                 {
                     roomName = systemView.promptName("\nEnter the name of the room: ");
-                    if (selectedHotel.findRoomByName(roomName) == null)
+                    if (!roomList.contains(roomName))
                     {
                         System.out.println("Invalid room. Try again.");
                     }
-                } while (selectedHotel.findRoomByName(roomName) == null);
+                } while (!roomList.contains(roomName));
     
                 choice = systemView.promptYN("\nConfirm reservation for " + guestName + " for dates " + checkInDate + " to " + checkOutDate + " in room " + roomName + "?");
                 if (choice == 1)
@@ -672,12 +673,12 @@ public class SystemController {
             reservationList.get(i).printReservationInfo();
         }
     }
-
-    private void displayRoomList(ArrayList<Room> roomList)
+    
+    private void displayRoomList(ArrayList<String> roomList)
     {
-        for (Room room : roomList)
+        for (String room : roomList)
         {
-            System.out.println(" - " + room.getName());
+            System.out.println(" - " + room);
         }
     }
 }
