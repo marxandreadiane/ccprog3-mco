@@ -33,6 +33,7 @@ public class TestHotelRoomReservation {
         // Variable Initialization
         boolean b;
         int i;
+        double d;
         String s;
         
         // System Initialization
@@ -91,7 +92,7 @@ public class TestHotelRoomReservation {
         print(b);
 
         printcase("findRoomByName()", 9);
-        Room room = hotel1.findRoomByName("A08");
+        Room room = hotel1.findRoomByName("A8");
         print(room.getName());
 
         printcase("findRoomByName()", 10);
@@ -99,21 +100,21 @@ public class TestHotelRoomReservation {
         print(room == null);
 
         /**
-         * Testing 11-14 : Create, Remove and Find Reservations
+         * Testing 11-16 : Create, Remove and Find Reservations
          */
-        room = hotel1.findRoomByName("A08");
+        room = hotel1.findRoomByName("A8");
         printcase("createReservation() and getReservationList", 11);
         hotel1.createReservation("Enzo", 12, 13, room);
         for (Reservation reservation : hotel1.getReservationList()) 
             print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
 
-        room = hotel1.findRoomByName("A09");
+        room = hotel1.findRoomByName("A9");
         printcase("createReservation() and getReservationList : multiple", 12);
         hotel1.createReservation("Diane", 12, 13, room);
         for (Reservation reservation : hotel1.getReservationList()) 
             print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
 
-        room = hotel1.findRoomByName("A08");
+        room = hotel1.findRoomByName("A8");
         printcase("removeReservation", 13);
         hotel1.removeReservation("Enzo", 12, 13, room);
         for (Reservation reservation : hotel1.getReservationList()) 
@@ -124,14 +125,14 @@ public class TestHotelRoomReservation {
         print(b);
 
         // generate reservations
-        room = hotel1.findRoomByName("A08");
+        room = hotel1.findRoomByName("A8");
         hotel1.createReservation("Enzo", 15, 18, room);
         room = hotel1.findRoomByName("A11");
         hotel1.createReservation("CJ", 14, 17, room);
-        room = hotel1.findRoomByName("A09");
+        room = hotel1.findRoomByName("A9");
         hotel1.createReservation("Enzo", 15, 18, room);
        
-
+        
         printcase("filterReservationByName()", 15);
         for (Reservation reservation : hotel1.filterReservationByName("Enzo"))
             print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
@@ -139,6 +140,10 @@ public class TestHotelRoomReservation {
         printcase("filterReservationByName() : null", 16);
         print(hotel1.filterReservationByName("ENzo").size() == 0);
 
+
+        /**
+         * Testing 17-19 : Room Availability
+         */
         printcase("getAvailableRooms()", 17);
         i = hotel1.getAvailableRooms(12);
         print(i);
@@ -151,6 +156,23 @@ public class TestHotelRoomReservation {
         for (String r :  hotel1.filterAvailableRooms(12, 13)) {
             print(r);
         }
+
+        /**
+         * Testing 20-21 : Miscellaneous
+         */
+        // generate reservations
+        room = hotel2.findRoomByName("B2");
+        hotel2.createReservation("Kirby", 12, 18, room);
+        room = hotel2.findRoomByName("B18");
+        hotel2.createReservation("Yoru", 15, 16, room);
+       
+        printcase("getHighLevel()", 20);
+        d = hotel1.getTotalReservationEarnings();
+        print(d);
+
+        printcase("getHighLevel()", 21);
+        d = hotel2.getTotalReservationEarnings();
+        print(d);
 
 
         /**

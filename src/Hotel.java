@@ -144,7 +144,7 @@ public class Hotel
      * Gets the total estimated earnings from all reservations.
      * @return the total earnings from reservations
      */
-    private double getTotalReservationEarnings()
+    public double getTotalReservationEarnings()
     {
         double total = 0;
         for (Reservation reservation : reservationList)
@@ -154,21 +154,7 @@ public class Hotel
 
         return total;
     }
-
-    /**
-     * Prints high-level information about this hotel, including name, total number of rooms,
-     * and estimated earnings for the month.
-     */
-    public void getHighLevel()
-    {
-        String hotelInformation = "Hotel Name: " + getName() + 
-                                "\nTotal Number of Rooms: " + roomList.size() +
-                                "\nEstimated earnings for the month: " + getTotalReservationEarnings();
-
-        System.out.println(hotelInformation);
-    }
-    
-    
+        
     // ADD or DELETE METHODS
     /**
      * Adds a room to this hotel.
@@ -178,7 +164,7 @@ public class Hotel
     public boolean addRoom()
     {
         boolean success = false;
-        String name = getName().charAt(0) + String.format("%02d", this.roomNumber);
+        String name = getName().charAt(0) + String.format("%d", this.roomNumber);
 
         if (roomList.size() < 50)
         {

@@ -98,8 +98,7 @@ public class SystemController {
             {
                 // High-Level Info
                 case 1:
-                    System.out.println("\nHere are the high-level information of the hotel:");
-                    selectedHotel.getHighLevel();
+                    systemView.displayHighLevelInfo(selectedHotel);
                     break;
 
                 // Low-Level Info

@@ -118,6 +118,17 @@ public class SystemView {
         System.out.println("4. Quit");
     }
 
+    public void displayHighLevelInfo(Hotel hotel)
+    {
+        System.out.println("\nHere are the high-level information of the hotel:");
+        
+        String hotelInformation = "Hotel Name: " + hotel.getName() + 
+                                "\nTotal Number of Rooms: " + hotel.getRoomList().size() +
+                                "\nEstimated earnings for the month: " + hotel.getTotalReservationEarnings();
+
+        System.out.println(hotelInformation);
+    }
+
     // MANAGING HOTEL DISPLAY SUBMETHODS
     public void displayManagingActions()
     {
