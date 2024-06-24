@@ -16,6 +16,7 @@ public class Hotel
     /**
      * Constructs a Hotel with the specified name, specified number of rooms and an empty list of reservations
      * @param name the name of the hotel
+     * @param numOfRooms the number of rooms to be added in the hotel
      */    
     public Hotel(String name, int numOfRooms)
     {
@@ -158,22 +159,13 @@ public class Hotel
     // ADD or DELETE METHODS
     /**
      * Adds a room to this hotel.
-     * @param name the name of the room to add
-     * @return true if the room is added successfully, false if the room already exists
      */
-    public boolean addRoom()
+    public void addRoom()
     {
-        boolean success = false;
         String name = getName().charAt(0) + String.format("%d", this.roomNumber);
-
-        if (roomList.size() < 50)
-        {
-            roomList.add(new Room(name));
-            success = true;
-        }
+        roomList.add(new Room(name));
 
         this.roomNumber++;
-        return success;
     }
 
     /**
@@ -214,6 +206,7 @@ public class Hotel
      * @param guestName the name of the guest
      * @param checkInDate the check-in date
      * @param checkOutDate the check-out date
+     * @param room the reserved room
      * @return true if the reservation is removed successfully, false otherwise
      */
     public boolean removeReservation(String guestName, int checkInDate, int checkOutDate, Room room)
