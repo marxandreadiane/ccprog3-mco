@@ -11,7 +11,8 @@ public class HRSystem {
 
     // SPECIFIC GETTERS/FINDERS
     /** 
-     * 
+     * Gets the list of hotels in this hotel reservation system
+     * @return the list of hotels in this system
      */
     public ArrayList<Hotel> getHotelList()
     {
@@ -68,6 +69,5 @@ public class HRSystem {
         }
         return null;
     }
-
 
 }
