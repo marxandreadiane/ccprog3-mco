@@ -396,7 +396,6 @@ public class SystemController {
     {
         Hotel selectedHotel;
         ArrayList<String> roomList = new ArrayList<String>();
-        Room selectedRoom;
         int checkInDate, checkOutDate, choice;
         String guestName, roomName;
         boolean tryAgain;

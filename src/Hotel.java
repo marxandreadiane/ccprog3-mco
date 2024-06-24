@@ -1,12 +1,10 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents a Hotel with a name, a list of rooms, and a list of reservations.
  */
 public class Hotel
 {
-    private static Scanner scanner = new Scanner(System.in);
 
     private String name;
     private ArrayList<Room> roomList = new ArrayList<Room>();

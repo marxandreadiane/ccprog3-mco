@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TestHotelRoomReservation {
 
     private static HRSystem sys = new HRSystem();
@@ -18,6 +20,10 @@ public class TestHotelRoomReservation {
         System.out.println("return : " + b + "\n");
     }
 
+    public static void print(int b) {
+        System.out.println("return : " + b + "\n");
+    }
+
     public static void printlines() {
         System.out.println("\n=============================\n\n");
     }
@@ -26,15 +32,21 @@ public class TestHotelRoomReservation {
 
         // Variable Initialization
         boolean b;
+        int i;
+        String s;
         
         // System Initialization
-        sys.createHotel("A-Hotel", 28);
+        sys.createHotel("A-Hotel", 49);
         sys.createHotel("B-Hotel", 30);
-        sys.createHotel("C-Hotel", 48);
+        sys.createHotel("C-Hotel", 1);
         Hotel hotel1 = sys.findHotelByName("A-Hotel");
         Hotel hotel2 = sys.findHotelByName("B-Hotel");
        
         printlines();
+
+        /**
+         * TESTING: HOTEL CLASS
+         */
 
         /**
          * Testing 1-3: set/get name/basePrice
@@ -46,10 +58,111 @@ public class TestHotelRoomReservation {
         printcase("getsetnamebasePrice : price", 2);
         print(hotel2.getBasePrice());
 
-        b = hotel2.setBasePrice(80);
-        printcase("getsetnamebasePrice : overlimit", 3);
+        /**
+         * Testing 4-10 Create, Add, Count, Find Rooms
+         */
+        printcase("getNumOfRooms()", 3);
+        i = hotel1.getNumberOfRooms();
+        print(i);
+
+        printcase("getRoomList()", 4);
+        ArrayList<String> rooms = hotel1.getRoomList();
+        for (String room : rooms) {
+            print(room);
+        }
+
+        printcase("addRoom()", 5);
+        hotel1.addRoom();
+        print(hotel1.getNumberOfRooms());
+
+        printcase("addRoom() : restriction", 6);
+        hotel1.addRoom();
+        print(hotel1.getNumberOfRooms());
+
+        printcase("removeRoom()", 7);
+        hotel1.removeRoom("A47");
+        rooms = hotel1.getRoomList();
+        for (String room : rooms) {
+            print(room);
+        }
+
+        printcase("removeRoom() : null", 8);
+        b = hotel1.removeRoom("A47");
         print(b);
 
+        printcase("findRoomByName()", 9);
+        Room room = hotel1.findRoomByName("A08");
+        print(room.getName());
 
+        printcase("findRoomByName()", 10);
+        room = hotel1.findRoomByName("A47");
+        print(room == null);
+
+        /**
+         * Testing 11-14 : Create, Remove and Find Reservations
+         */
+        room = hotel1.findRoomByName("A08");
+        printcase("createReservation() and getReservationList", 11);
+        hotel1.createReservation("Enzo", 12, 13, room);
+        for (Reservation reservation : hotel1.getReservationList()) 
+            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
+
+        room = hotel1.findRoomByName("A09");
+        printcase("createReservation() and getReservationList : multiple", 12);
+        hotel1.createReservation("Diane", 12, 13, room);
+        for (Reservation reservation : hotel1.getReservationList()) 
+            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
+
+        room = hotel1.findRoomByName("A08");
+        printcase("removeReservation", 13);
+        hotel1.removeReservation("Enzo", 12, 13, room);
+        for (Reservation reservation : hotel1.getReservationList()) 
+            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
+        
+        printcase("removeReservation : null", 14);
+        b = hotel1.removeReservation("Enzo", 12, 13, room);
+        print(b);
+
+        // generate reservations
+        room = hotel1.findRoomByName("A08");
+        hotel1.createReservation("Enzo", 15, 18, room);
+        room = hotel1.findRoomByName("A11");
+        hotel1.createReservation("CJ", 14, 17, room);
+        room = hotel1.findRoomByName("A09");
+        hotel1.createReservation("Enzo", 15, 18, room);
+       
+
+        printcase("filterReservationByName()", 15);
+        for (Reservation reservation : hotel1.filterReservationByName("Enzo"))
+            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
+        
+        printcase("filterReservationByName() : null", 16);
+        print(hotel1.filterReservationByName("ENzo").size() == 0);
+
+        printcase("getAvailableRooms()", 17);
+        i = hotel1.getAvailableRooms(12);
+        print(i);
+
+        printcase("getBookedRooms()", 18);
+        i = hotel1.getBookedRooms(12);
+        print(i);
+
+        printcase("filterAvailableRooms()", 19);
+        for (String r :  hotel1.filterAvailableRooms(12, 13)) {
+            print(r);
+        }
+
+
+        /**
+         * TESTING: ROOM CLASS
+         */
+
+
+        /**
+         * PLAYGROUND
+         */
+        printcase("PLAYGROUND", 0);
+        for (Reservation reservation : hotel1.getReservationList()) 
+            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
     }
 }
