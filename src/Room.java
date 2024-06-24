@@ -29,9 +29,8 @@ public class Room
     }
 
     /**
-     * 
-     * @param checkInDate
-     * @return
+     * Gets the list containing the reserved dates
+     * @return the list of reserved dates
      */
     public ArrayList<Integer> getReservedDates()
     {
