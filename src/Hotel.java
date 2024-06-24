@@ -89,22 +89,10 @@ public class Hotel
     /**
      * Sets the base price for all rooms in this hotel.
      * @param price the base price to set
-     * @return true if the price is set successfully, false if the price is less than 100
      */
-    public boolean setBasePrice(double price)
+    public void setBasePrice(double price)
     {
-        boolean success = true;
-
-        if (price >= 100)
-        {
-            this.basePrice = price;
-        }
-        else
-        {
-            success = false;
-        }
-
-        return success;
+        this.basePrice = price;
     }
 
     
