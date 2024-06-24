@@ -1,21 +1,35 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Contains all the printing functionalities necessary
+ */
 public class SystemView {
 
     private Scanner scanner;
 
     // CONSTRUCTORS
+    /**
+     * Constructs SystemView with a scanner
+     */
     public SystemView() 
     {
         this.scanner = new Scanner(System.in);
     }
 
     // GENERAL PRINT AND PROMPT METHODS
+    /**
+     * Eats the remaining character(s) after an int is read
+     */
     public void buffer() {
         scanner.nextLine();
     }
 
+    /**
+     * Prompts a Yes/No question
+     * @param message the question / prompt
+     * @return the response of the user to the message
+     */
     public int promptYN(String message) 
     {
         int response;
@@ -33,6 +47,11 @@ public class SystemView {
         return response;
     }
 
+    /**
+     * Asks for a string input
+     * @param message the question / prompt
+     * @return the response of the user to the message
+     */
     public String promptName(String message) 
     {
         System.out.print(message);
@@ -40,6 +59,11 @@ public class SystemView {
         return name;
     }
 
+    /**
+     * Asks for an int input
+     * @param message the question / prompt
+     * @return the response of the user to the message
+     */
     public int promptInt(String message) 
     {
         System.out.print(message);
@@ -48,6 +72,11 @@ public class SystemView {
         return number;
     }
 
+    /**
+     * Asks for a double input
+     * @param message the question / prompt
+     * @return the response of the user to the message
+     */
     public double promptDouble(String message) 
     {
         System.out.print(message);
@@ -57,11 +86,17 @@ public class SystemView {
     }
 
     // MAIN MENU and MAIN FUNCTIONALITIES' DISPLAY METHODS
+    /**
+     * Displays a welcome message upon entering the hotel reservation system
+     */
     public void displayWelcomeMessage() 
     {
         System.out.println("Welcome to the Hotel Reservation System!\n");
     }
 
+    /**
+     * Displays the main menu of the hotel reservation system
+     */
     public void displayMainMenu() 
     {
         System.out.println("\n+-----------------------------------------------------+");
@@ -72,6 +107,9 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
     }
 
+    /**
+     * Displays the create hotel title 
+     */
     public void displayCreateHotelMenu() 
     {
         System.out.println("\n+-----------------------------------------------------+");
@@ -79,6 +117,9 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
     }
 
+    /**
+     * Displays the view hotel title 
+     */
     public void displayViewHotelMenu() 
     {
         System.out.println("\n+-----------------------------------------------------+");
@@ -86,6 +127,9 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
     }
 
+    /**
+     * Displays the manage hotel title 
+     */
     public void displayManageHotelMenu() 
     {
         System.out.println("\n+-----------------------------------------------------+");
@@ -93,6 +137,9 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
     }
 
+    /**
+     * Displays the book hotel title 
+     */
     public void displayBookingMenu() 
     {
         System.out.println("\n+-----------------------------------------------------+");
@@ -103,6 +150,7 @@ public class SystemView {
      // PRINT/DISPLAY SPECIFIC OBJECTS OR STRINGS
     /**
      * Prints the list of existing hotels.
+     * @param hotelList the list of hotels in the system
      */
     public void displayHotels(ArrayList<Hotel> hotelList)
     {
@@ -116,6 +164,10 @@ public class SystemView {
     
     }
 
+    /**
+     * Prints the available dates given a room 
+     * @param room a room in the system
+     */
     public void displayAvailableDates(Room room) 
     {
         int i;
@@ -131,6 +183,10 @@ public class SystemView {
     }
 
     // VIEW INFO DISPLAY SUBMETHODS
+    /**
+     * Displays the view hotel menu
+     * @param name the name of the hotel
+     */
     public void displayHotelInfoMenu(String name)
     {
         int choice;
@@ -140,6 +196,10 @@ public class SystemView {
         System.out.println("3. Quit");
     }
 
+    /**
+     * Displays the low level information menu under view hotel 
+     * @param name the name of the hotel
+     */
     public void displayLowLevelInfoMenu(String name) 
     {
         System.out.println("\nSelect which info you want to know more about hotel: " + name);
@@ -149,6 +209,10 @@ public class SystemView {
         System.out.println("4. Quit");
     }
 
+    /**
+     * Displays the high level information menu under view hotel 
+     * @param hotel the hotel whose high level information will be displayed
+     */
     public void displayHighLevelInfo(Hotel hotel)
     {
         System.out.println("\nHere are the high-level information of the hotel:");
@@ -161,6 +225,9 @@ public class SystemView {
     }
 
     // MANAGING HOTEL DISPLAY SUBMETHODS
+    /**
+     * Displays the menu for manage hotel 
+     */
     public void displayManagingActions()
     {
         System.out.println("\n+-----------------------------------------------------+");
