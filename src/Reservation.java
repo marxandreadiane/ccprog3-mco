@@ -14,12 +14,14 @@ public class Reservation
      * @param guestName the name of the guest
      * @param checkInDate the check-in date
      * @param checkOutDate the check-out date
+     * @param room the room to be reserved
      */
-    public Reservation(String guestName, int checkInDate, int checkOutDate)
+    public Reservation(String guestName, int checkInDate, int checkOutDate, Room room)
     {
         this.guestName = guestName;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.room = room;
     }
 
     // GETTERS AND SETTERS
@@ -57,15 +59,6 @@ public class Reservation
     public Room getRoom()
     {
         return this.room;
-    }
-
-    /**
-     * Sets the room associated with this reservation.
-     * @param room the room to set this reservation with
-     */
-    public void setRoom(Room room)
-    {
-        this.room = room;
     }
 
 
