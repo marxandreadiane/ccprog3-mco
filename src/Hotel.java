@@ -98,26 +98,6 @@ public class Hotel
     
     // SPECIFIC GETTERS FOR HIGH AND LOW LEVEL DATA
     /**
-     * Gets the number of available rooms for a given date range.
-     * @param checkInDate the check-in date
-     * @param checkOutDate the check-out date
-     * @return the number of available rooms
-     */
-    public int getAvailableRooms(int checkInDate, int checkOutDate)
-    {
-        int nRooms = 0;
-
-        for (Room room : roomList)
-        {
-            if (room.getAvailability(checkInDate, checkOutDate) == true)
-            {
-                nRooms++;
-            }
-        }
-        return nRooms;
-    }
-    
-    /**
      * Gets the number of available rooms for a specific date.
      * @param date the date to check availability
      * @return the number of available rooms
@@ -227,29 +207,15 @@ public class Hotel
      * @param guestName the name of the guest
      * @param checkInDate the check-in date
      * @param checkOutDate the check-out date
-     * @return true if the reservation is created successfully, false otherwise
+     * @param room the room to be reserved
      */
-    public boolean createReservation(String guestName, int checkInDate, int checkOutDate)
+    public void createReservation(String guestName, int checkInDate, int checkOutDate, Room room)
     {
         Reservation reservation;
-        boolean success = false;
-        int i = 0;
-
-        while (!success && i < roomList.size())
-        {
-            if (roomList.get(i).getAvailability(checkInDate, checkOutDate))
-            {
-                reservation = new Reservation(guestName, checkInDate, checkOutDate);
-                roomList.get(i).bookRoom(checkInDate, checkOutDate);
-                reservation.setRoom(roomList.get(i));
-
-                reservationList.add(reservation);
-                success = true;
-            }
-            i++;
-        }
         
-        return true;
+        reservation = new Reservation(guestName, checkInDate, checkOutDate, room);
+        room.bookRoom(checkInDate, checkOutDate);
+        reservationList.add(reservation);
     }
 
     /**
@@ -315,5 +281,25 @@ public class Hotel
         }
 
         return filteredList;
+    }
+
+    /**
+     * Filters available rooms for a given date range.
+     * @param checkInDate the check-in date
+     * @param checkOutDate the check-out date
+     * @return the list of all available rooms
+     */
+    public ArrayList<Room> filterAvailableRooms(int checkInDate, int checkOutDate)
+    {
+        ArrayList<Room> availableRooms = new ArrayList<Room>();
+
+        for (Room room : this.roomList)
+        {
+            if (room.getAvailability(checkInDate, checkOutDate) == true)
+            {
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
     }
 }
