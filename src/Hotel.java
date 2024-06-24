@@ -242,6 +242,7 @@ public class Hotel
                 && reservationList.get(i).getCheckOutDate() == checkOutDate
                 && reservationList.get(i).getRoom() == room)
             {
+                reservationList.get(i).getRoom().removeReservedDate(checkInDate, checkOutDate);
                 reservationList.remove(i);
                 success = true;
             }
