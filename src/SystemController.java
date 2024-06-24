@@ -21,57 +21,50 @@ public class SystemController {
      */
     public void createHotel() 
     {
+        String name;
         int choice, numOfRooms;
         boolean tryAgain;
+
         do
         {
             tryAgain = false;
-            
             systemView.displayCreateHotelMenu();
-            String name = systemView.promptName("Name of the new hotel: ");
-
-            do
+            name = systemView.promptName("Name of the new hotel: ");
+            if (system.findHotelByName(name) != null)
             {
-                numOfRooms = systemView.promptInt("How many rooms would you like to have? ");
+                choice = systemView.promptYN("\nError! Hotel already exists. Would you like to try again?");
 
-                if (numOfRooms > 50)
+                if (choice == 1)
                 {
-                    System.out.println("Number exceeds the maximum count. Enter another number.");
+                    tryAgain = true;
                 }
-                else if (numOfRooms <= 0)
-                {
-                    System.out.println("Number is invalid. Enter another number.");
-                }
-            } while (numOfRooms <= 0 || numOfRooms > 50);
-
-
-            if (system.createHotel(name, numOfRooms))
-            {
-                System.out.println("\nHotel successfully created!\n");
-                
-                do
-                {
-                    choice = systemView.promptYN("Would you like to create another hotel?");
-
-                    if (choice == 1)
-                    {
-                        tryAgain = true;
-                    }   
-                } while (choice != 1 && choice != 2);
             }
             else
             {
                 do
                 {
-                    choice = systemView.promptYN("\nError! Hotel already exists. Would you like to try again?");
-
-                    if (choice == 1)
+                    numOfRooms = systemView.promptInt("How many rooms would you like to have? ");
+    
+                    if (numOfRooms > 50)
                     {
-                        tryAgain = true;
-                    }   
-                } while (choice != 1 && choice != 2);
+                        System.out.println("Number exceeds the maximum count. Enter another number.");
+                    }
+                    else if (numOfRooms <= 0)
+                    {
+                            System.out.println("Number is invalid. Enter another number.");
+                    }
+                } while (numOfRooms <= 0 || numOfRooms > 50);
+
+                system.createHotel(name, numOfRooms);
+                System.out.println("\nHotel successfully created!\n");
+                choice = systemView.promptYN("Would you like to create another hotel?");
+
+                if (choice == 1)
+                {
+                    tryAgain = true;
+                }
             }
-            
+
         } while (tryAgain);
     }
 
