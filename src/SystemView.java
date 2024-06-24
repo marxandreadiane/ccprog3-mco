@@ -65,8 +65,8 @@ public class SystemView {
     {
         System.out.println("\n+-----------------------------------------------------+");
         System.out.println("|               HOTEL RESERVATION SYSTEM              |");
-        System.out.println("| 1. Create Hotel                     3. Manage Hotel |");
-        System.out.println("| 2. View Hotel                       4. Book Hotel   |");
+        System.out.println("| 1. Create Hotel                    3. Manage Hotel  |");
+        System.out.println("| 2. View Hotel                      4. Book Hotel    |");
         System.out.println("|                Press 0 to QUIT SYSTEM               |");
         System.out.println("+-----------------------------------------------------+");
     }
