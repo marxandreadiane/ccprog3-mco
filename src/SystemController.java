@@ -252,7 +252,7 @@ public class SystemController {
                         if (choice == 1)
                         {
                             System.out.println("\nList of rooms: ");
-                            displayRoomList(selectedHotel.getRoomList());
+                            displayRoomList(selectedHotel.filterAvailableRooms(1, 31));
                         }
                         
                         name = systemView.promptName("\nEnter the name of the room: ");
@@ -430,7 +430,7 @@ public class SystemController {
                 checkInDate = systemView.promptInt("Check-in date: ");
                 if (checkInDate >= 31 || checkInDate <= 0)
                 {
-                    System.out.println("Invalid date. Try again.");
+                    System.out.println("Invalid check-in date. Try again.");
                 }
                 } while ((checkInDate >= 31 || checkInDate <= 0));
     
@@ -439,7 +439,7 @@ public class SystemController {
                 checkOutDate = systemView.promptInt("Check-out date: ");
                 if (checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate)
                 {
-                    System.out.println("Invalid date. Try again.");
+                    System.out.println("Invalid check-out date. Try again.");
                 }
             } while ((checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate));
     
