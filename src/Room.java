@@ -89,6 +89,23 @@ public class Room
     }
 
     /**
+     * Removes the specified reserved dates from the list
+     * @param checkInDate the check-in date
+     * @param checkOutDate the check-out date
+     */
+    public void removeReservedDate(int checkInDate, int checkOutDate)
+    {
+        Integer tempDate = checkInDate; 
+
+        while (tempDate < checkOutDate)
+        {
+            reservedDates.remove(tempDate);
+    
+            tempDate++;
+        }
+    }
+
+    /**
      * Prints the available dates for this room.
      */
     public void printAvailableDates()
@@ -99,7 +116,7 @@ public class Room
         {
             if (!reservedDates.contains(i))
             {
-                System.out.print("i ");
+                System.out.print(i + " ");
             }
         }
         System.out.print("\n");
