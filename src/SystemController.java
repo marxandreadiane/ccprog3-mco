@@ -1,12 +1,17 @@
 import java.util.ArrayList;
 
+/**
+ * Controls all the functionalities of the entire hotel reservation system
+ */
 public class SystemController {
     private SystemView systemView;
     private HRSystem system;
 
     // CONSTRUCTORS
     /** 
-     * 
+     * Constructs SystemController with provided SystemView and HRSystem
+     * @param systemView contains the printing functionalities of the system
+     * @param system contains the list of hotels
      */
     public SystemController(SystemView systemView, HRSystem system)
     {
@@ -192,28 +197,28 @@ public class SystemController {
                 case 2: 
                     do
                     {
-                        int i;
+                        int i, newrooms;
                         tryAgain = false;
 
                         do
                         {
-                            choice = systemView.promptInt("\nHow many rooms would you like to add? ");
+                            newrooms = systemView.promptInt("\nHow many rooms would you like to add? ");
 
-                            if (choice > 50 - selectedHotel.getNumberOfRooms())
+                            if (newrooms > 50 - selectedHotel.getNumberOfRooms())
                             {
                                 System.out.println("Number exceeds the maximum count. Enter another number.");
                             }
-                            else if (choice < 0)
+                            else if (newrooms < 0)
                             {
                                 System.out.println("Number is invalid. Enter another number.");
                             }
-                        } while (choice < 0 || choice > 50 - selectedHotel.getNumberOfRooms());
+                        } while (newrooms < 0 || newrooms > 50 - selectedHotel.getNumberOfRooms());
                     
                         choice = systemView.promptYN("\nConfirm the addition of rooms in this hotel?");
 
                         if (choice == 1)
                         {
-                            for (i = 0; i < choice; i++)
+                            for (i = 0; i < newrooms; i++)
                             {
                                 selectedHotel.addRoom();
                             }
@@ -239,45 +244,52 @@ public class SystemController {
                     do
                     {
                         tryAgain = false;
-
-                        choice = systemView.promptYN("\nWould you like to see the list of rooms?");
-                        if (choice == 1)
-                        {
-                            System.out.println("\nList of rooms: ");
-                            displayRoomList(selectedHotel.filterAvailableRooms(1, 31));
-                        }
                         
-                        name = systemView.promptName("\nEnter the name of the room: ");
-
-                        if (selectedHotel.findRoomByName(name) != null)
+                        if (selectedHotel.getNumberOfRooms() > 1)
                         {
-                            if (selectedHotel.findRoomByName(name).getAvailability(1, 31))
+                            choice = systemView.promptYN("\nWould you like to see the list of rooms?");
+                            if (choice == 1)
                             {
-                                choice = systemView.promptYN("\nRemove room " + name + "?");
-                                if (choice == 1)
+                                System.out.println("\nList of rooms: ");
+                                displayRoomList(selectedHotel.filterAvailableRooms(1, 31));
+                            }
+                            
+                            name = systemView.promptName("\nEnter the name of the room: ");
+    
+                            if (selectedHotel.findRoomByName(name) != null)
+                            {
+                                if (selectedHotel.findRoomByName(name).getAvailability(1, 31))
                                 {
-                                    selectedHotel.removeRoom(name);
-                                    System.out.println("\nRoom successfully removed.");
+                                    choice = systemView.promptYN("\nRemove room " + name + "?");
+                                    if (choice == 1)
+                                    {
+                                        selectedHotel.removeRoom(name);
+                                        System.out.println("\nRoom successfully removed.");
+                                    }
+                                    else
+                                    {
+                                        System.out.println("\nDeletion cancelled.");
+                                    }
                                 }
                                 else
                                 {
-                                    System.out.println("\nDeletion cancelled.");
+                                    System.out.println("\nRoom has an existing reservation. It cannot be removed.");
                                 }
                             }
                             else
                             {
-                                System.out.println("\nRoom has an existing reservation. It cannot be removed.");
+                                System.out.println("\nRoom does not exist.");
                             }
+    
+                            choice = systemView.promptYN("\nWould you like to remove another room?");
+                            if (choice == 1)
+                            {
+                                tryAgain = true;
+                            }   
                         }
                         else
                         {
-                            System.out.println("\nRoom does not exist.");
-                        }
-
-                        choice = systemView.promptYN("\nWould you like to remove another room?");
-                        if (choice == 1)
-                        {
-                            tryAgain = true;
+                            System.out.println("\nHotel has only one room. Process automatically exited.");
                         }
                     } while (tryAgain);
                     break;
@@ -366,18 +378,26 @@ public class SystemController {
 
                 // Remove hotel
                 case 6: 
-                    choice = systemView.promptYN("\nWould you like to delete hotel \"" + selectedHotel.getName() + "\"?");
-
-                    if (choice == 1)
+                    if (selectedHotel.filterAvailableRooms(1, 31).size() == selectedHotel.getNumberOfRooms())
                     {
-                        System.out.println("\nHotel successfully deleted.");
-                        system.removeHotel(selectedHotel.getName());
-                        manageAgain = false;
+                        choice = systemView.promptYN("\nWould you like to delete hotel \"" + selectedHotel.getName() + "\"?");
+
+                        if (choice == 1)
+                        {
+                            System.out.println("\nHotel successfully deleted.");
+                            system.removeHotel(selectedHotel.getName());
+                            manageAgain = false;
+                        }
+                        else
+                        {
+                            System.out.println("\nProcess cancelled.");
+                        }
                     }
                     else
                     {
-                        System.out.println("\nProcess cancelled.");
+                        System.out.println("\nHotel cannot be removed as there are existing reservations.");
                     }
+            
                     break;
 
                 default: 
@@ -479,7 +499,9 @@ public class SystemController {
 
 
     // SUB-METHODS FOR VIEWING AND MANAGING
-    // view list of hotel
+    /**
+     * Prompts and displays the list of hotels depending on the user's choice
+     */
     public void promptViewListOfHotels() 
     {
         int choice;
@@ -495,7 +517,10 @@ public class SystemController {
         System.out.println();
     }
     
-    // select a hotel to view/manage, returns Hotel or null
+    /**
+     * Allows the selection of a hotel to view or manage
+     * @return selected hotel or null if invalid
+     */
     public Hotel promptSelectHotel() 
     {
         String name;
@@ -522,7 +547,10 @@ public class SystemController {
     }
 
 
-    // prompt and view certain low-level information in Hotel
+    /**
+     * Prompts and allows for the viewing of low-level information in a selected hote
+     * @param selectedHotel the hotel that holds the information 
+     */
     public void promptLowLevelInfo(Hotel selectedHotel) 
     {
         int date, choice;
@@ -660,6 +688,10 @@ public class SystemController {
         } while (choice != 4);
     }
 
+    /**
+     * Prints the reservation list
+     * @param reservationList the list containing the reservations
+     */
     private void displayReservationList(ArrayList<Reservation> reservationList)
     {
         int i;
@@ -672,6 +704,10 @@ public class SystemController {
         }
     }
     
+    /**
+     * Prints the name of rooms
+     * @param roomList the list containing the names of the rooms
+     */
     private void displayRoomList(ArrayList<String> roomList)
     {
         for (String room : roomList)
