@@ -74,10 +74,10 @@ public class Reservation
      */
     public void printReservationInfo()
     {
-        System.out.println("Name of guest: " + getGuestName());
-        System.out.println("Room information: " + getRoom().getName());
-        System.out.println("Check-in date: " + getCheckInDate());
-        System.out.println("Check-out date: " + getCheckOutDate());
+        System.out.println(" Name of guest: " + getGuestName());
+        System.out.println("   Room information: " + getRoom().getName());
+        System.out.println("   Check-in date: " + getCheckInDate());
+        System.out.println("   Check-out date: " + getCheckOutDate());
         System.out.println();
     }
 }
