@@ -293,8 +293,8 @@ public class SystemController {
                 // Set new base price
                 case 4: 
                     double price;
-  
-                    if (selectedHotel.getAvailableRooms(1, 31) == selectedHotel.getNumberOfRooms()) // No reservations
+
+                    if (selectedHotel.filterAvailableRooms(1, 31).size() == selectedHotel.getNumberOfRooms()) // No reservations
                     {
                         do
                         {
@@ -402,62 +402,87 @@ public class SystemController {
     public void simulateBooking() 
     {
         Hotel selectedHotel;
+        ArrayList<Room> roomList = new ArrayList<Room>();
         int checkInDate, checkOutDate, choice;
-        String name;
-        
-        systemView.displayBookingMenu();
+        String guestName, roomName;
+        boolean tryAgain;
+
+        do
+        {
+            tryAgain = false;
+            systemView.displayBookingMenu();
              
-        // Prompt if View List of Hotels
-        promptViewListOfHotels();
-
-        // Select Hotel
-        selectedHotel = promptSelectHotel();
-        if (selectedHotel == null)
-            return;
-
-        System.out.println();
-
-        // Getting valid check-in and check-out dates
-        do
-        {
-            checkInDate = systemView.promptInt("Check-in date: ");
-            if (checkInDate >= 31 || checkInDate <= 0)
+            // Prompt if View List of Hotels
+            promptViewListOfHotels();
+    
+            // Select Hotel
+            selectedHotel = promptSelectHotel();
+            if (selectedHotel == null)
+                return;
+    
+            System.out.println();
+    
+            guestName = systemView.promptName("Guest name: ");
+    
+            // Getting valid check-in and check-out dates
+            do
             {
-                System.out.println("Invalid date. Try again.");
-            }
-            } while ((checkInDate >= 31 || checkInDate <= 0));
-
-        do
-        {
-            checkOutDate = systemView.promptInt("Check-out date: ");
-            if (checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate)
+                checkInDate = systemView.promptInt("Check-in date: ");
+                if (checkInDate >= 31 || checkInDate <= 0)
+                {
+                    System.out.println("Invalid date. Try again.");
+                }
+                } while ((checkInDate >= 31 || checkInDate <= 0));
+    
+            do
             {
-                System.out.println("Invalid date. Try again.");
-            }
-        } while ((checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate));
-
-
-        if (selectedHotel.getAvailableRooms(checkInDate, checkOutDate) > 0)
-        {
-            System.out.println("\nRoom available!");
-            name = systemView.promptName("Guest name: ");
-
-            choice = systemView.promptYN("\nConfirm reservation for " + name + " for dates " + checkInDate + " to " + checkOutDate + "?");
-            if (choice == 1)
+                checkOutDate = systemView.promptInt("Check-out date: ");
+                if (checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate)
+                {
+                    System.out.println("Invalid date. Try again.");
+                }
+            } while ((checkOutDate >= 32 || checkOutDate <= 1 || checkOutDate <= checkInDate));
+    
+    
+            if (!selectedHotel.filterAvailableRooms(checkInDate, checkOutDate).isEmpty())
             {
-                selectedHotel.createReservation(name, checkInDate, checkOutDate);
-                System.out.println("\nReservation booked successfully.");
+                roomList = selectedHotel.filterAvailableRooms(checkInDate, checkOutDate);
+                System.out.println("\nList of available rooms: ");
+                displayRoomList(roomList);
+    
+                do
+                {
+                    roomName = systemView.promptName("\nEnter the name of the room: ");
+                    if (selectedHotel.findRoomByName(roomName) == null)
+                    {
+                        System.out.println("Invalid room. Try again.");
+                    }
+                } while (selectedHotel.findRoomByName(roomName) == null);
+    
+                choice = systemView.promptYN("\nConfirm reservation for " + guestName + " for dates " + checkInDate + " to " + checkOutDate + " in room " + roomName + "?");
+                if (choice == 1)
+                {
+                    selectedHotel.createReservation(guestName, checkInDate, checkOutDate, selectedHotel.findRoomByName(roomName));
+                    System.out.println("\nReservation booked successfully.");
+                }
+                else
+                {
+                    System.out.println("\nReservation cancelled.");
+                }
             }
             else
             {
-                System.out.println("\nReservation cancelled.");
+                System.out.println("\nSorry. No room available.");
+                System.out.println("Booking unsuccessful.");
             }
-        }
-        else
-        {
-            System.out.println("Sorry. No room available.");
-            System.out.println("Booking unsuccessful.");
-        }
+
+            choice = systemView.promptYN("\nWould you like to create another reservation?");
+            if (choice == 1)
+            {
+                tryAgain = true;
+            }
+
+        } while (tryAgain);
     }
 
 
@@ -657,12 +682,9 @@ public class SystemController {
 
     private void displayRoomList(ArrayList<Room> roomList)
     {
-        int i;
-
-        System.out.println();
-        for (i = 0; i < roomList.size(); i++)
+        for (Room room : roomList)
         {
-            System.out.println((i+1) + ". " + roomList.get(i).getName());
+            System.out.println(" - " + room.getName());
         }
     }
 }
