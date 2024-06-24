@@ -345,7 +345,7 @@ public class SystemController {
 
                             deleteRes = reservationList.get(choice - 1);
 
-                            choice = systemView.promptYN("Remove reservation?");
+                            choice = systemView.promptYN("\nRemove reservation?");
                             if (choice == 1)
                             {
                                 selectedHotel.removeReservation(deleteRes.getGuestName(), deleteRes.getCheckInDate(), deleteRes.getCheckOutDate(), deleteRes.getRoom());
