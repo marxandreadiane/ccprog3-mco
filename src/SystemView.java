@@ -239,4 +239,15 @@ public class SystemView {
         System.out.println("+-----------------------------------------------------+");
     }
 
+    /**
+     * Prints information about this reservation.
+     */
+    public void displayReservationInfo(Reservation reservation)
+    {
+        System.out.println(" Name of guest: " + reservation.getGuestName());
+        System.out.println("   Room information: " + reservation.getRoom().getName());
+        System.out.println("   Check-in date: " + reservation.getCheckInDate());
+        System.out.println("   Check-out date: " + reservation.getCheckOutDate());
+        System.out.println();
+    }
 }
