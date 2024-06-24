@@ -294,24 +294,31 @@ public class SystemController {
                 case 4: 
                     double price;
   
-                    do
+                    if (selectedHotel.getAvailableRooms(1, 31) == selectedHotel.getNumberOfRooms()) // No reservations
                     {
-                        price = systemView.promptDouble("\nNew base price: ");
-                        if (price < 100)
+                        do
                         {
-                            System.out.println("Price must be >= 100. Enter another price.");
+                            price = systemView.promptDouble("\nNew base price: ");
+                            if (price < 100)
+                            {
+                                System.out.println("Price must be >= 100. Enter another price.");
+                            }
+                        } while (price < 100);
+    
+                        choice = systemView.promptYN("\nSet new base price?");
+                        if (choice == 1)
+                        {
+                            selectedHotel.setBasePrice(price);
+                            System.out.println("\nPrice successfully updated.");
                         }
-                    } while (price < 100);
-
-                    choice = systemView.promptYN("\nSet new base price?");
-                    if (choice == 1)
-                    {
-                        selectedHotel.setBasePrice(price);
-                        System.out.println("\nPrice successfully updated.");
+                        else
+                        {
+                            System.out.println("\nProcess cancelled.");
+                        }
                     }
                     else
                     {
-                        System.out.println("\nProcess cancelled.");
+                        System.out.println("\nPrice cannot be changed as hotel has reservations.");
                     }
                     
                     break;
