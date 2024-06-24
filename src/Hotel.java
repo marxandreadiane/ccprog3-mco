@@ -51,12 +51,19 @@ public class Hotel
     }
 
     /**
-     * Gets the list of rooms in this hotel
-     * @return the list of rooms
+     * Gets the list of names of the rooms in this hotel
+     * @return the list of names of the rooms
      */
-    public ArrayList<Room> getRoomList()
+    public ArrayList<String> getRoomList()
     {
-        return this.roomList;
+        ArrayList<String> rooms = new ArrayList<String>();
+
+        for (Room room : this.roomList)
+        {
+            rooms.add(room.getName());
+        }
+        
+        return rooms;
     }
 
     /**
@@ -225,7 +232,7 @@ public class Hotel
      * @param checkOutDate the check-out date
      * @return true if the reservation is removed successfully, false otherwise
      */
-    public boolean removeReservation(String guestName, int checkInDate, int checkOutDate)
+    public boolean removeReservation(String guestName, int checkInDate, int checkOutDate, Room room)
     {
         boolean success = false;
         int i;
@@ -234,7 +241,8 @@ public class Hotel
         {
             if (reservationList.get(i).getGuestName().equals(guestName)
                 && reservationList.get(i).getCheckInDate() == checkInDate
-                && reservationList.get(i).getCheckOutDate() == checkOutDate)
+                && reservationList.get(i).getCheckOutDate() == checkOutDate
+                && reservationList.get(i).getRoom() == room)
             {
                 reservationList.remove(i);
                 success = true;
@@ -287,17 +295,17 @@ public class Hotel
      * Filters available rooms for a given date range.
      * @param checkInDate the check-in date
      * @param checkOutDate the check-out date
-     * @return the list of all available rooms
+     * @return the list of names of all available rooms
      */
-    public ArrayList<Room> filterAvailableRooms(int checkInDate, int checkOutDate)
+    public ArrayList<String> filterAvailableRooms(int checkInDate, int checkOutDate)
     {
-        ArrayList<Room> availableRooms = new ArrayList<Room>();
+        ArrayList<String> availableRooms = new ArrayList<String>();
 
         for (Room room : this.roomList)
         {
             if (room.getAvailability(checkInDate, checkOutDate) == true)
             {
-                availableRooms.add(room);
+                availableRooms.add(room.getName());
             }
         }
         return availableRooms;
