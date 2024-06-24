@@ -1,6 +1,7 @@
 public class TestSystemView {
 
      private static SystemView sv = new SystemView();
+     private static HRSystem sys = new HRSystem();
 
      // We're lazy.
      public static void print(int i, String name) {
@@ -51,6 +52,7 @@ public class TestSystemView {
           print(f);
           i++;
 
+          System.out.println("8 - 17. display with no params");
           sv.displayWelcomeMessage();
           sv.displayMainMenu();
           sv.displayCreateHotelMenu();
@@ -61,6 +63,16 @@ public class TestSystemView {
           sv.displayLowLevelInfoMenu("A-Hotel");
           sv.displayManagingActions();
 
+          print(i, "displayHotels(_)");
+          sys.createHotel("A", 1);
+          sys.createHotel("B", 2);
+          sys.createHotel("C", 3);
+          sv.displayHotels(sys.getHotelList());
+          i++;
 
+          print(i, "displayHighLevelInfo(_)");
+          Room room = sys.findHotelByName("A").findRoomByName("A1");
+          sys.findHotelByName("A").createReservation("Enzo", 1, 31, room);
+          sv.displayHighLevelInfo(sys.findHotelByName("A"));
      }
 }

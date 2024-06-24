@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SystemView {
@@ -99,6 +100,36 @@ public class SystemView {
             System.out.println("+-----------------------------------------------------+");
     }
 
+     // PRINT/DISPLAY SPECIFIC OBJECTS OR STRINGS
+    /**
+     * Prints the list of existing hotels.
+     */
+    public void displayHotels(ArrayList<Hotel> hotelList)
+    {
+        int i;
+        System.out.println("\n- List of Existing Hotels -");
+        for (i = 0; i < hotelList.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + hotelList.get(i).getName());
+        }
+        System.out.println("- - - - END OF LIST - - - -");
+    
+    }
+
+    public void displayAvailableDates(Room room) 
+    {
+        int i;
+
+        for (i = 1; i < 31; i++)
+        {
+            if (!room.getReservedDates().contains(i))
+            {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.print("\n");
+    }
+
     // VIEW INFO DISPLAY SUBMETHODS
     public void displayHotelInfoMenu(String name)
     {
@@ -121,7 +152,7 @@ public class SystemView {
     public void displayHighLevelInfo(Hotel hotel)
     {
         System.out.println("\nHere are the high-level information of the hotel:");
-        
+
         String hotelInformation = "Hotel Name: " + hotel.getName() + 
                                 "\nTotal Number of Rooms: " + hotel.getRoomList().size() +
                                 "\nEstimated earnings for the month: " + hotel.getTotalReservationEarnings();

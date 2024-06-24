@@ -1,6 +1,7 @@
 public class TestHRSystem {
     
     private static HRSystem sys = new HRSystem();
+    private static SystemView sysview = new SystemView();
 
     public static void printcase(String name, int i) {
         System.out.println("testing " + String.valueOf(i) + ": " + name);
@@ -26,14 +27,14 @@ public class TestHRSystem {
          * Testing: createHotel() and printHotel()
          */
         printcase("createHotel()", 1);
-        sys.printHotel();
+        sysview.displayHotels(sys.getHotelList());
         b = sys.createHotel("A-Hotel", 20);
-        sys.printHotel();
+        sysview.displayHotels(sys.getHotelList());
         print(b);
 
         printcase("createHotel() duplicate", 2);
         b = sys.createHotel("A-Hotel", 18);
-        sys.printHotel();
+        sysview.displayHotels(sys.getHotelList());
         print(b);
 
         printlines();
@@ -47,12 +48,12 @@ public class TestHRSystem {
 
         printcase("removeHotel()", 3);
         b = sys.removeHotel("B-Hotel");
-        sys.printHotel();
+        sysview.displayHotels(sys.getHotelList());
         print(b);
 
         printcase("removeHotel()", 4);
         b = sys.removeHotel("D-Hotel");
-        sys.printHotel();
+        sysview.displayHotels(sys.getHotelList());
         print(b);
 
         /**

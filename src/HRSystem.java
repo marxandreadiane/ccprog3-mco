@@ -10,21 +10,13 @@ public class HRSystem {
     // CONSTRUCTOR - none; is set to default HRSystem().
 
     // SPECIFIC GETTERS/FINDERS
-    /**
-     * Get a Hotel object with the specified name.
-     * @param name the name of hotel being searched
-     * @return Hotel object with same name if found, null otherwise
+    /** 
+     * 
      */
-    public Hotel getHotel(String name) 
+    public ArrayList<Hotel> getHotelList()
     {
-        for (Hotel hotel : this.hotelList) {
-            if (hotel.getName().equals(name)) {
-                return hotel;
-            }
-        }
-        return null;
+        return this.hotelList;
     }
-
 
     // ADD, REMOVE and SEARCH HOTEL METHODS
     /**
@@ -77,18 +69,5 @@ public class HRSystem {
         return null;
     }
 
-    /**
-     * Prints the list of existing hotels.
-     */
-    public void printHotel()
-    {
-        int i;
-        System.out.println("\n- List of Existing Hotels -");
-        for (i = 0; i < hotelList.size(); i++)
-        {
-            System.out.println((i + 1) + ". " + hotelList.get(i).getName());
-        }
-        System.out.println("- - - - END OF LIST - - - -");
-    }
 
 }

@@ -28,6 +28,16 @@ public class Room
         return this.name;
     }
 
+    /**
+     * 
+     * @param checkInDate
+     * @return
+     */
+    public ArrayList<Integer> getReservedDates()
+    {
+        return this.reservedDates;
+    }
+
     // AVAILABILITY METHODS
     /**
      * Checks if this room is available on the given date.
@@ -106,28 +116,11 @@ public class Room
     }
 
     /**
-     * Prints the available dates for this room.
-     */
-    public void printAvailableDates()
-    {
-        int i;
-
-        for (i = 1; i < 31; i++)
-        {
-            if (!reservedDates.contains(i))
-            {
-                System.out.print(i + " ");
-            }
-        }
-        System.out.print("\n");
-    }
-
-    /**
      * Checks if this room is fully booked for the month.
      * @return true if this room is fully booked, false otherwise
      */
     public boolean isFullyBooked()
     {
-        return reservedDates.size() == 30;
+        return reservedDates.size() == 50;
     }
 }

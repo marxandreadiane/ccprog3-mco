@@ -490,7 +490,7 @@ public class SystemController {
 
         if (choice == 1)
         {
-            system.printHotel();
+           systemView.displayHotels(system.getHotelList());
         }
         System.out.println();
     }
@@ -513,7 +513,7 @@ public class SystemController {
             }
             else
             {
-                return system.getHotel(name);
+                return system.findHotelByName(name);
             }
 
         } while (system.findHotelByName(name) == null);
@@ -591,7 +591,7 @@ public class SystemController {
                         System.out.println("Room name: " + selectedRoom.getName());
                         System.out.println("Price per night: " + selectedHotel.getBasePrice());
                         System.out.print("Available dates: ");
-                        selectedRoom.printAvailableDates();
+                        systemView.displayAvailableDates(selectedRoom);
 
                         choice = systemView.promptYN("\nWould you like to check another room?");
                         if (choice == 1)
