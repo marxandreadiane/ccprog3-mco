@@ -171,8 +171,17 @@ public class SystemController {
                     
                         if (system.findHotelByName(name) == null)
                         {
-                            selectedHotel.setName(name);
-                            System.out.println("Hotel name successfully changed.");
+                            choice = systemView.promptYN("\nConfirm the name change of this hotel?");
+
+                            if (choice == 1)
+                            {
+                                selectedHotel.setName(name);
+                                System.out.println("\nHotel name successfully changed.");
+                            }
+                            else
+                            {
+                                System.out.println("\nName change process cancelled.");
+                            }
                         }
                         else
                         {
@@ -196,7 +205,7 @@ public class SystemController {
 
                         do
                         {
-                            choice = systemView.promptInt("How many rooms would you like to add?");
+                            choice = systemView.promptInt("How many rooms would you like to add? ");
 
                             if (choice > 50 - selectedHotel.getNumberOfRooms())
                             {
@@ -237,19 +246,26 @@ public class SystemController {
                             displayRoomList(selectedHotel.getRoomList());
                         }
                         
-                        name = systemView.promptName("Enter the name of the room: ");
+                        name = systemView.promptName("\nEnter the name of the room: ");
 
                         if (selectedHotel.findRoomByName(name) != null)
                         {
-                            choice = systemView.promptYN("Remove room " + name + "?");
-                            if (choice == 1)
+                            if (selectedHotel.findRoomByName(name).getAvailability(1, 31))
                             {
-                                selectedHotel.removeRoom(name);
-                                System.out.println("\nRoom successfully removed.");
+                                choice = systemView.promptYN("Remove room " + name + "?");
+                                if (choice == 1)
+                                {
+                                    selectedHotel.removeRoom(name);
+                                    System.out.println("\nRoom successfully removed.");
+                                }
+                                else
+                                {
+                                    System.out.println("\nDeletion cancelled.");
+                                }
                             }
                             else
                             {
-                                System.out.println("\nDeletion cancelled.");
+                                System.out.println("\nRoom has an existing reservation. It cannot be removed.");
                             }
                         }
                         else
@@ -257,7 +273,7 @@ public class SystemController {
                             System.out.println("\nRoom does not exist.");
                         }
 
-                        choice = systemView.promptYN("Would you like to remove another room?");
+                        choice = systemView.promptYN("\nWould you like to remove another room?");
                         if (choice == 1)
                         {
                             tryAgain = true;
@@ -426,7 +442,7 @@ public class SystemController {
             System.out.println("\nRoom available!");
             name = systemView.promptName("Guest name: ");
 
-            choice = systemView.promptYN("Confirm reservation for " + name + " for dates " + checkInDate + " to " + checkOutDate + "?");
+            choice = systemView.promptYN("\nConfirm reservation for " + name + " for dates " + checkInDate + " to " + checkOutDate + "?");
             if (choice == 1)
             {
                 selectedHotel.createReservation(name, checkInDate, checkOutDate);
@@ -512,14 +528,14 @@ public class SystemController {
 
                         do
                         {
-                            date = systemView.promptInt("Select date: ");
+                            date = systemView.promptInt("\nSelect date: ");
                             if (date > 31 || date < 1)
                             {
                                 System.out.println("Invalid date. Try again.");
                             }
                         } while (date > 31 || date < 1);
         
-                        System.out.println("Total number of available rooms: " + selectedHotel.getAvailableRooms(date));
+                        System.out.println("\nTotal number of available rooms: " + selectedHotel.getAvailableRooms(date));
                         System.out.println("Total number of booked rooms: " + selectedHotel.getBookedRooms(date));
 
                         choice = systemView.promptYN("\nWould you like to check another date?");
@@ -546,7 +562,7 @@ public class SystemController {
                             
                         do
                         {
-                            name = systemView.promptName("Enter the name of the room: ");
+                            name = systemView.promptName("\nEnter the name of the room: ");
                             selectedRoom = selectedHotel.findRoomByName(name);
                             if (selectedRoom == null)
                             {
@@ -554,6 +570,7 @@ public class SystemController {
                             }
                         } while (selectedRoom == null);
         
+                        System.out.println("\nRoom information");
                         System.out.println("Room name: " + selectedRoom.getName());
                         System.out.println("Price per night: " + selectedHotel.getBasePrice());
                         System.out.print("Available dates: ");
@@ -633,6 +650,7 @@ public class SystemController {
         System.out.println();
         for (i = 0; i < reservationList.size(); i++)
         {
+            System.out.print("1.");
             reservationList.get(i).printReservationInfo();
         }
     }
