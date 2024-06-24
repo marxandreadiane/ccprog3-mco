@@ -669,7 +669,7 @@ public class SystemController {
         System.out.println();
         for (i = 0; i < reservationList.size(); i++)
         {
-            System.out.print(i + ".");
+            System.out.print((i+1) + ".");
             reservationList.get(i).printReservationInfo();
         }
     }
