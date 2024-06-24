@@ -208,11 +208,11 @@ public class SystemController {
                             {
                                 System.out.println("Number exceeds the maximum count. Enter another number.");
                             }
-                            else if (newrooms < 0)
+                            else if (newrooms <= 0)
                             {
                                 System.out.println("Number is invalid. Enter another number.");
                             }
-                        } while (newrooms < 0 || newrooms > 50 - selectedHotel.getNumberOfRooms());
+                        } while (newrooms <= 0 || newrooms > 50 - selectedHotel.getNumberOfRooms());
                     
                         choice = systemView.promptYN("\nConfirm the addition of rooms in this hotel?");
 
@@ -700,7 +700,7 @@ public class SystemController {
         for (i = 0; i < reservationList.size(); i++)
         {
             System.out.print((i+1) + ".");
-            reservationList.get(i).printReservationInfo();
+            systemView.displayReservationInfo(reservationList.get(i));
         }
     }
     
