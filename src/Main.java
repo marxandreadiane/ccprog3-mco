@@ -1,5 +1,15 @@
+/**
+ * The Main class serves as the entry point to the Hotel Reservation System, providing options to access the functionalities of the system.
+ */
 public class Main
 {
+    /**
+     * The main method serves as the entry point to the Hotel Reservation System.
+     * This instantiates HRSystem, SystemView, and SystemController,
+     * and presents the functionalities of the system.
+     *
+     * @param args command line arguments
+     */
     public static void main (String[] args)
     {
         HRSystem system = new HRSystem();
