@@ -174,17 +174,69 @@ public class TestHotelRoomReservation {
         d = hotel2.getTotalReservationEarnings();
         print(d);
 
+        printlines();
 
         /**
          * TESTING: ROOM CLASS
          */
+        room = hotel1.findRoomByName("A8");
 
+        printcase("getName()", 1);
+        print(room.getName());
+        
+        printcase("getReservedDates()", 2);
+        for (int r : room.getReservedDates())
+            print(r);
+        
+        printcase("getAvailability : solo date", 3);
+        print(room.getAvailability(18));
 
+        printcase("getAvailability : solo date", 4);
+        print(room.getAvailability(17));
+
+        printcase("getAvailability : dual date", 5);
+        print(room.getAvailability(14, 25));
+
+        printcase("getAvailability : dual date", 6);
+        print(room.getAvailability(18, 20));
+
+        printcase("bookRoom", 7);
+        room.bookRoom(11, 13);
+        for (int r : room.getReservedDates())
+            print(r);
+
+        printcase("removeReservedDate", 8);
+        room.removeReservedDate(11, 13);
+        for (int r : room.getReservedDates())
+            print(r);
+        
+        printcase("isFullyBooked", 9);
+        print(room.isFullyBooked());
+
+        printcase("isFullyBooked", 10);
+        room.bookRoom(1, 15);
+        room.bookRoom(18, 31);
+        print(room.isFullyBooked());
+        
         /**
-         * PLAYGROUND
+         * TESTING: RESERVATION CLASS
          */
-        printcase("PLAYGROUND", 0);
-        for (Reservation reservation : hotel1.getReservationList()) 
-            print(reservation.getGuestName() + reservation.getCheckInDate() + reservation.getCheckOutDate() + reservation.getRoom().getName());
+
+        printlines();
+
+        Reservation reservation = hotel2.getReservationList().get(0);
+        
+        printcase("getGuestName()", 1);
+        print(reservation.getGuestName());
+
+        printcase("getCheckInDate()", 2);
+        print(reservation.getCheckInDate());
+
+        printcase("getCheckOutDate()", 3);
+        print(reservation.getCheckOutDate());
+
+        printcase("getRoom()", 4);
+        print(reservation.getRoom().getName());
+        
     }
 }
