@@ -60,8 +60,18 @@ public class SystemController {
                     }
                 } while (numOfRooms <= 0 || numOfRooms > 50);
 
-                system.createHotel(name, numOfRooms);
-                System.out.println("\nHotel successfully created!\n");
+                choice = systemView.promptYN("\nConfirm the creation of hotel \"" + name + "\" with " + numOfRooms + " rooms?");
+
+                if (choice == 1)
+                {
+                    system.createHotel(name, numOfRooms);
+                    System.out.println("\nHotel successfully created!\n");
+                }
+                else
+                {
+                    System.out.println("\nHotel not created.\n");
+                }
+
                 choice = systemView.promptYN("Would you like to create another hotel?");
 
                 if (choice == 1)
