@@ -23,6 +23,7 @@ public class HRSystem {
     /**
      * Creates a new hotel with the specified name.
      * @param name the name of the new hotel
+     * @param numOfRooms the number of rooms to be created along with the hotel
      * @return true if the hotel is created successfully, false if the hotel already exists
      */
     public boolean createHotel(String name, int numOfRooms)
