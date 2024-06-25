@@ -224,9 +224,9 @@ public class SystemView {
         System.out.println(hotelInformation);
     }
 
-    // MANAGING HOTEL DISPLAY SUBMETHODS
+    // VIEWING / MANAGING HOTEL DISPLAY SUBMETHODS
     /**
-     * Displays the menu for managing the hotel 
+     * Displays the menu for manage hotel 
      */
     public void displayManagingActions()
     {
@@ -251,4 +251,5 @@ public class SystemView {
         System.out.println("   Check-out date: " + reservation.getCheckOutDate());
         System.out.println();
     }
+
 }

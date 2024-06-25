@@ -210,39 +210,46 @@ public class SystemController {
                         int i, newrooms;
                         tryAgain = false;
 
-                        do
+                        if (selectedHotel.getNumberOfRooms() < 50) 
                         {
-                            newrooms = systemView.promptInt("\nHow many rooms would you like to add? ");
+                            do
+                            {
+                                newrooms = systemView.promptInt("\nHow many rooms would you like to add? ");
 
-                            if (newrooms > 50 - selectedHotel.getNumberOfRooms())
-                            {
-                                System.out.println("Number exceeds the maximum count. Enter another number.");
-                            }
-                            else if (newrooms <= 0)
-                            {
-                                System.out.println("Number is invalid. Enter another number.");
-                            }
-                        } while (newrooms <= 0 || newrooms > 50 - selectedHotel.getNumberOfRooms());
-                    
-                        choice = systemView.promptYN("\nConfirm the addition of rooms in this hotel?");
-
-                        if (choice == 1)
-                        {
-                            for (i = 0; i < newrooms; i++)
-                            {
-                                selectedHotel.addRoom();
-                            }
-                            System.out.println("\nRoom(s) successfully added.");
-                            }
-                        else
-                        {
-                            System.out.println("\nRoom(s) not added.");
-                        }
+                                if (newrooms > 50 - selectedHotel.getNumberOfRooms())
+                                {
+                                    System.out.println("Number exceeds the maximum count. Enter another number.");
+                                }
+                                else if (newrooms <= 0)
+                                {
+                                    System.out.println("Number is invalid. Enter another number.");
+                                }
+                            } while (newrooms <= 0 || newrooms > 50 - selectedHotel.getNumberOfRooms());
                         
-                        choice = systemView.promptYN("\nWould you like to add more rooms?");
-                        if (choice == 1)
+                            choice = systemView.promptYN("\nConfirm the addition of rooms in this hotel?");
+
+                            if (choice == 1)
+                            {
+                                for (i = 0; i < newrooms; i++)
+                                {
+                                    selectedHotel.addRoom();
+                                }
+                                System.out.println("\nRoom(s) successfully added.");
+                                }
+                            else
+                            {
+                                System.out.println("\nRoom(s) not added.");
+                            }
+                            
+                            choice = systemView.promptYN("\nWould you like to add more rooms?");
+                            if (choice == 1)
+                            {
+                                tryAgain = true;
+                            }
+                        } 
+                        else 
                         {
-                            tryAgain = true;
+                            System.out.println("\nHotel has maximum number of rooms. Cannot add any more rooms.");
                         }
 
                     } while (tryAgain);
@@ -584,7 +591,7 @@ public class SystemController {
                         do
                         {
                             date = systemView.promptInt("\nSelect date: ");
-                            if (date > 31 || date < 1)
+                            if (date > 30 || date < 1)
                             {
                                 System.out.println("Invalid date. Try again.");
                             }
@@ -655,12 +662,8 @@ public class SystemController {
                         }
                         else
                         {
-                            choice = systemView.promptYN("\nWould you like to see the list of reservations?");
-                            if (choice == 1)
-                            {
-                                System.out.println("\nList of reservations: ");
-                                displayReservationList(reservationList);
-                            }
+                            System.out.println("\nList of reservations: ");
+                            displayReservationList(reservationList);
                             
                             do
                             {
