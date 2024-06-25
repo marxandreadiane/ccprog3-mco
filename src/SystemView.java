@@ -226,7 +226,7 @@ public class SystemView {
 
     // MANAGING HOTEL DISPLAY SUBMETHODS
     /**
-     * Displays the menu for manage hotel 
+     * Displays the menu for managing the hotel 
      */
     public void displayManagingActions()
     {
@@ -241,6 +241,7 @@ public class SystemView {
 
     /**
      * Prints information about this reservation.
+     * @param reservation the reservation object containing the information to be displayed
      */
     public void displayReservationInfo(Reservation reservation)
     {
