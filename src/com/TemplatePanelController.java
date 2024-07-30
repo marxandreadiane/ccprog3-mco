@@ -72,16 +72,34 @@ public class TemplatePanelController {
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(
                     templatePanel.getFrame(),
-                    "Are you sure you want to exit? Hotel Reservation System data will cease to exist.",
-                    "Confirm Exit",
+                    "Before you exit, would you like to export relevant data?",
+                    "Export",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
                 );
 
                 if (result == JOptionPane.YES_OPTION) {
-                    templatePanel.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    templatePanel.getFrame().dispose(); 
+                    String filename = "";
+                    boolean loop = true;
+        
+                    while (loop) {
+                        filename = JOptionPane.showInputDialog("Input filename including the .txt extension:");
+        
+                        if (filename == null) {
+                            JOptionPane.showMessageDialog(null, "Action canceled. No filename provided.");
+                            loop = false;
+                        }
+                        else if (!filename.isBlank() && filename.endsWith(".txt")) {
+                            new Export(hrSystem, filename); 
+                            loop = false;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid filename including .txt.");
+                        }
+                    }
                 }
+    
+                templatePanel.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                templatePanel.getFrame().dispose(); 
             }
         });
     }
