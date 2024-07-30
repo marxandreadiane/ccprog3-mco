@@ -83,8 +83,6 @@ public class ManageHotelController
                 hrSystem.removeHotel(hotelName);
                 
                 removeHotel.dispose();
-                manageHotel.getFrame().repaint();
-                manageHotel.getFrame().revalidate();
                 manageHotel.getHotelName().setSelectedItem("");
                 manageHotel.displayMessage("Hotel successfully removed.");      
             }
