@@ -1,4 +1,5 @@
-package com;
+package test;
+
 import java.util.ArrayList;
 import javax.lang.model.util.ElementScanner14;
 
