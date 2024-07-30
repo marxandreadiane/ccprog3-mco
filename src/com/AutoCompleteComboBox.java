@@ -7,12 +7,12 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 public class AutoCompleteComboBox extends JComboBox<String> {
-    private final List<String> items;
+    private List<String> list;
     private boolean isFiltering = false; 
 
-    public AutoCompleteComboBox(List<String> items) {
+    public AutoCompleteComboBox(List<String> list) {
         super();
-        this.items = new ArrayList<>(items);
+        this.list = new ArrayList<>(list);
         setEditable(true);
         JTextComponent editor = (JTextComponent) getEditor().getEditorComponent();
         editor.addKeyListener(new KeyAdapter() {
@@ -32,24 +32,29 @@ public class AutoCompleteComboBox extends JComboBox<String> {
 
     private void filterList(String input) {
         isFiltering = true;
-        List<String> filteredItems = new ArrayList<>();
+        List<String> filteredList = new ArrayList<>();
         boolean foundMatch = false;
-        for (String item : items) {
-            if (item.toLowerCase().startsWith(input.toLowerCase())) {
-                filteredItems.add(item);
+        for (String entry : list) {
+            if (entry.toLowerCase().startsWith(input.toLowerCase())) {
+                filteredList.add(entry);
                 foundMatch = true;
             }
         }
         if (!foundMatch) {
-            filteredItems.add(input); 
+            filteredList.add(input); 
         }
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(filteredItems.toArray(new String[0]));
-        setModel(model);
-        if (!filteredItems.isEmpty()) {
+        DefaultComboBoxModel<String> newList = new DefaultComboBoxModel<>(filteredList.toArray(new String[0]));
+        setModel(newList);
+        if (!filteredList.isEmpty()) {
             setSelectedItem(input);
         }
         JTextComponent editor = (JTextComponent) getEditor().getEditorComponent();
         editor.setCaretPosition(editor.getText().length());
         isFiltering = false;
+    }
+
+    public void removeEntry(String input)
+    {
+        list.remove(input);
     }
 }
