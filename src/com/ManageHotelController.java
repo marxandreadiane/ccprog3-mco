@@ -69,7 +69,7 @@ public class ManageHotelController
                     removeHotel = manageHotel.removeHotel();
                     removeHotel.setVisible(true);
                 }
-                else
+                else 
                 {
                     manageHotel.displayMessage("Kindly input an existing Hotel name.");
                 }
@@ -81,8 +81,10 @@ public class ManageHotelController
             public void actionPerformed(ActionEvent e) {
                 String hotelName = manageHotel.getHotelNameSelectedItem();
                 hrSystem.removeHotel(hotelName);
-
+                
                 removeHotel.dispose();
+                manageHotel.getFrame().repaint();
+                manageHotel.getFrame().revalidate();
                 manageHotel.getHotelName().setSelectedItem("");
                 manageHotel.displayMessage("Hotel successfully removed.");      
             }

@@ -146,6 +146,7 @@ public class Reservation
     {
         ArrayList<String> breakdown = new ArrayList<String>();
         String element;
+        double pricePerNight; String formattedPricePerNight;
         int consideredCheckInDate = this.checkInDate;
 
         if (minusOneDay == 1)
@@ -155,7 +156,9 @@ public class Reservation
 
         for (int i = consideredCheckInDate; i < this.checkOutDate; i++)
         {
-            element = + i + " - " + (i+1) + " : "+ Double.toString(hotel.getRoomPrice(room) * hotel.getDatePriceMultiplier(i));
+            pricePerNight = hotel.getRoomPrice(room) * hotel.getDatePriceMultiplier(i) * this.voucherDiscountMultiplier;
+            formattedPricePerNight = String.format("%.2f", pricePerNight);
+            element = + i + " - " + (i+1) + " : " + formattedPricePerNight;
             breakdown.add(element);
         }
 

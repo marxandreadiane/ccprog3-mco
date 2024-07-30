@@ -180,7 +180,9 @@ public class ViewHotel {
         textExecutive = infoText(Integer.toString(hotel.getNumberOfExecutiveRooms()), 200, 70);
         highLevel.add(textExecutive);
 
-        textEarnings = infoText(Double.toString(hotel.getTotalReservationEarnings()), 240, 150);
+        double earnings = hotel.getTotalReservationEarnings();
+        String formattedEarnings = String.format("%.2f", earnings);
+        textEarnings = infoText(formattedEarnings, 240, 150);
         highLevel.add(textEarnings);
 
         return highLevel;

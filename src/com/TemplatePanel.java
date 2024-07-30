@@ -13,6 +13,7 @@ public class TemplatePanel {
     private JPanel mainPanel;
 
     public TemplatePanel() {
+
         // Set up the frame
         frame = new JFrame("Hotel Reservation System");
         frame.setSize(1200, 700);
@@ -45,7 +46,7 @@ public class TemplatePanel {
         sidePanel.setBounds(0, 0, 200, 700);
         
         // Create and add logo to the side panel
-        ImageIcon logo = new ImageIcon("/resources/hotel_logo.png");
+        ImageIcon logo = new ImageIcon(getClass().getResource("/resources/hotel_logo.png"));
         JLabel logoLabel = new JLabel(logo);
         logoLabel.setBounds(9, 10, 180, 180);  // Adjust position and size as needed
         sidePanel.add(logoLabel);

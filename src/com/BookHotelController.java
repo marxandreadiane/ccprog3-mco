@@ -72,7 +72,6 @@ public class BookHotelController {
             }
         });
         
-
         this.bookHotel.setBookButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
