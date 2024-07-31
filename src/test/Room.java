@@ -121,6 +121,6 @@ public class Room
      */
     public boolean isFullyBooked()
     {
-        return reservedDates.size() == 50;
+        return reservedDates.size() == 30;
     }
 }

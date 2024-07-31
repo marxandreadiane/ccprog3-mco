@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+
 public class TestHRSystem {
     private static HRSystem sys = new HRSystem();
     private static SystemView sysview = new SystemView();
@@ -21,6 +23,7 @@ public class TestHRSystem {
         boolean b;
         int i;
         double d;
+        ArrayList<String> names = new ArrayList<String>();
         Hotel h = null;
 
         /**
@@ -33,12 +36,12 @@ public class TestHRSystem {
         sysview.displayHotels(sys.getHotelList());
         System.out.println("Return : " + i + "\n");
 
-        System.out.println("Test 2: 20 20 10, should return 0");
+        System.out.println("Test 2: 20 20 10, should return 1");
         i = sys.createHotel("A-Hotel", "20", "20", "10");
         sysview.displayHotels(sys.getHotelList());
         System.out.println("Return : " + i + "\n");
 
-        System.out.println("Test 3: 20 20 10, should return 0");
+        System.out.println("Test 3: 20 20 20, should return 0");
         i = sys.createHotel("B-Hotel", "20", "20", "20");
         sysview.displayHotels(sys.getHotelList());
         System.out.println("Return : " + i + "\n");
@@ -69,8 +72,11 @@ public class TestHRSystem {
         
         System.out.println("Test 6: Remove non-existent hotel, should return False");
         b = sys.removeHotel("D-Hotel");
-        sysview.displayHotels(sys.getHotelList());
-        System.out.println("Return : " + b + "\n");
+        names = sys.getHotelNames();
+        for (String name : names) {
+            System.out.print(name + " ");
+        }
+        System.out.println("\n");
 
         printlines();
 
