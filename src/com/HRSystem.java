@@ -41,7 +41,9 @@ public class HRSystem {
     /**
      * Creates a new hotel with the specified name.
      * @param name the name of the new hotel
-     * @param numOfRooms the number of rooms to be created along with the hotel
+     * @param standard The string containing the number of standard rooms to be created along with the hotel
+     * @param deluxe The string containing the number of deluxe rooms to be created along with the hotel
+     * @param executive The string containing the number of executive rooms to be created along with the hotel
      * @return true if the hotel is created successfully, false if the hotel already exists
      */
     public int createHotel(String name, String standard, String deluxe, String executive)
@@ -251,11 +253,11 @@ public class HRSystem {
      * @param room the room reserved
      * @return true if the reservation was successfully removed, false otherwise
      */
-    public boolean removeReservation(Hotel hotel, String guestName, int CheckIn, int CheckOut, Room room)
+    public boolean removeReservation(Hotel hotel, String guestName, int checkIn, int checkOut, Room room)
     {
         boolean success = false;
 
-        if (hotel.removeReservation(guestName, CheckIn, CheckOut, room))
+        if (hotel.removeReservation(guestName, checkIn, checkOut, room))
         {
             success = true;
         }

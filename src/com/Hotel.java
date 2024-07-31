@@ -22,7 +22,9 @@ public class Hotel
     /**
      * Constructs a Hotel with the specified name, specified number of rooms and an empty list of reservations.
      * @param name the name of the hotel
-     * @param numOfRooms the number of rooms to be added in the hotel
+     * @param numOfBaseRooms the number of standard rooms to be added in the hotel
+     * @param numOfDeluxeRooms the number of deluxe rooms to be added in the hotel
+     * @param numOfExecutiveRooms the number of executive rooms to be added in the hotel
      */    
     public Hotel(String name, int numOfBaseRooms, int numOfDeluxeRooms, int numOfExecutiveRooms)
     {
@@ -171,6 +173,7 @@ public class Hotel
 
     /**
      * Gets the price of a room in this hotel.
+     * @param room The room object whose price will be returned
      * @return the price of a room
      */
     public double getRoomPrice(Room room)
@@ -191,6 +194,7 @@ public class Hotel
 
     /**
      * Gets the type of a room in this hotel.
+     * @param room The room object whose type will be returned
      * @return the type of a room
      */
     public String getRoomType(Room room)
@@ -321,8 +325,8 @@ public class Hotel
     /**
      * Creates a reservation for a guest.
      * @param guestName the name of the guest
-     * @param checkInDate the check-in date
-     * @param checkOutDate the check-out date
+     * @param checkIn the check-in date
+     * @param checkOut the check-out date
      * @param room the room to be reserved
      * @param voucher the voucher code that is subject to application
      * @return 0 if failed, 1 if success, 2 if success with voucher applied, 3 if success but voucher was not applied
