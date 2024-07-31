@@ -1,0 +1,170 @@
+HOTEL CLASS
+
+Tests 1-2: Checking if Setters work
+return : Bida-Jabi
+return : 110.0
+
+Tests 3-6: getNumOfRooms and subtype rooms
+return : 47
+return : 24
+return : 22
+return : 1
+
+Test 7: getRoomList()
+S1 S2 S3 S4 S5 S6 S7 S8 S9 S10 S11 S12 S13 S14 S15 S16 S17 S18 S19 S20 S21 S22 S23 S24 D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20 D21 D22 E1 
+
+Test 8: addBaseRoom()
+return : 25
+
+Test 9: addDeluxeRoom()
+return : 23
+
+Test 10: addExecutiveRoom()
+return : 2
+
+Test 11: removeRoom() valid
+S1 S2 S3 S4 S5 S6 S7 S8 S9 S10 S11 S12 S13 S14 S15 S16 S17 S18 S19 S20 S21 S22 S23 S24 D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20 D21 D22 E1 D23 E2 
+
+Test 12: removeRoom() null
+return : false
+
+Test 13: findRoomByName() valid
+return : E2
+
+Test 14: findRoomByName() null
+return : true
+
+Tests 15-17: getRoomType() for all three types
+return : Standard
+return : 1299.0
+return : Deluxe
+return : 1558.8
+return : Executive
+return : 1753.65
+
+Tests 18-19: getDeluxePrice and getExecutivePrice rooms
+return : 1558.8
+return : 1753.65
+
+Test 20: create valid reservation
+1
+return : Enzo1213S1
+
+Test 21: create overlapping reservation
+0
+[Enzo | 12 - 13 | S1]
+
+Test 22: invalid date
+0
+
+Test 23: invalid voucher
+3
+
+Test 24: valid voucher
+2
+
+Test 25-26: Display multiple reservations
+return : Enzo1213S1
+return : Diane1617S2
+return : Enzo1420S4
+return : Diane1415S9
+[Enzo | 12 - 13 | S1, Diane | 16 - 17 | S2, Enzo | 14 - 20 | S4, Diane | 14 - 15 | S9]
+
+Test 27: Remove valid reservation
+return : true
+[Diane | 16 - 17 | S2, Enzo | 14 - 20 | S4, Diane | 14 - 15 | S9]
+
+Test 28: Remove invalid reservation
+return : false
+
+Test 29: Remove valid reservation w/ reservation object
+return : true
+
+Test 30: Remove invalid reservation w/ reservation object
+return : false
+
+Test 31: getAvailableRooms()
+return : 48
+
+Test 32: getBookedRooms()
+return : 1
+
+Test 33: filterAvailableRooms()
+S1 S2 S3 S4 S5 S6 S7 S8 S10 S11 S12 S13 S14 S15 S16 S17 S18 S19 S20 S21 S22 S23 S24 D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13 D14 D15 D16 D17 D18 D19 D20 D21 D22 E1 D23 E2 
+
+Test 34: Date Price Modifier
+return : 0.5
+
+Test 35: Get Total Earnings - hotel1
+return : 2598.0
+
+Test 36: Get Total Earnings - hotel2
+return : 798.105
+
+Test 37-42: Get Total Earnings - hotel2
+0
+1
+2
+3
+4
+5
+
+ROOM CLASS
+
+Test 1: getName()
+return : S2
+
+Test 2: getReservedDates()
+return : 16
+
+Test 3-4: getAvailability : solo date
+return : true
+return : false
+
+Test 5-6: getAvailability : dual date
+return : false
+return : true
+
+Test 7: bookRoom
+return : 16
+return : 15
+
+Test 8: removeReservedDate
+return : 15
+
+Test 9: isFullyBooked
+return : false
+
+Test 10: isFullyBooked
+return : true
+
+RESERVATION CLASS
+
+Test 1: getGuestName()
+return : Kirby
+
+Test 2: getCheckInDate()
+return : 12
+
+Test 3: getCheckOutDate()
+return : 18
+
+Test 4: getRoom()
+return : D4
+
+Test 5: calculatePrice(), getTotalPrice()
+660.0
+
+Test 6-11: enterVoucher()
+false
+true
+true
+true
+true
+false
+
+Test 12: getBreakdown()
+HR DatePriceModifier: 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 
+Room Price: 132.0
+output: 
+13 - 14 : 110.48 | 14 - 15 : 110.48 | 15 - 16 : 110.48 | 16 - 17 : 110.48 | 17 - 18 : 110.48 | 
