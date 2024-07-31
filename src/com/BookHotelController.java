@@ -2,10 +2,18 @@ package com;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The BookHotelController class is responsible for managing the interactions between the
+ * BookHotel view and the HRSystem model.
+ */
 public class BookHotelController {
     private BookHotel bookHotel;
     private HRSystem hrSystem;
 
+    /**
+     * Constructs a BookHotelController with the specified HRSystem.
+     * @param hrSystem the HRSystem object containing hotel data
+     */
     public BookHotelController(HRSystem hrSystem) {
         this.bookHotel = new BookHotel(hrSystem);
         this.hrSystem = hrSystem;

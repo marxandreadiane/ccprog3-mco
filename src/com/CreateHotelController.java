@@ -3,11 +3,20 @@ package com;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The CreateHotelController class is responsible for managing the interactions between the
+ * CreateHotel view and the HRSystem model.
+ */
 public class CreateHotelController
 {
     private CreateHotel createHotel;
     private HRSystem hrSystem;
     
+    /**
+     * Constructs a CreateHotelController with the specified CreateHotel and HRSystem.
+     * @param createHotel the CreateHotel object containing the view
+     * @param hrSystem the HRSystem object containing hotel data
+     */
     public CreateHotelController(CreateHotel createHotel, HRSystem hrSystem)
     {
         this.createHotel = createHotel;

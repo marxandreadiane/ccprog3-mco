@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
+/**
+ * The ViewHotelController class is responsible for managing the interactions between the
+ * ViewHotel view and the HRSystem model.
+ */
 public class ViewHotelController
 {
     private HRSystem hrSystem;
@@ -11,6 +15,10 @@ public class ViewHotelController
     private JPanel highInfo;
     private JPanel lowInfo;
 
+    /**
+     * Constructs a ViewHotelController with the specified HRSystem.
+     * @param hrSystem the HRSystem object containing hotel data
+     */
     public ViewHotelController(HRSystem hrSystem)
     {
         this.hrSystem = hrSystem;

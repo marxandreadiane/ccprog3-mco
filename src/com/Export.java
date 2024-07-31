@@ -3,11 +3,20 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
 
+/**
+ * The Export class is responsible for exporting hotel reservation system data 
+ * to a specified text file.
+ */
 public class Export
 {
     private HRSystem hrSystem;
     private FileWriter filename;
 
+    /**
+     * Constructs an Export object with the specified HRSystem and output text file name.
+     * @param hrSystem the HRSystem object containing hotel data
+     * @param textfile the name of the text file to write the data to
+     */
     public Export(HRSystem hrSystem, String textfile)
     {
         this.hrSystem = hrSystem;
@@ -27,6 +36,11 @@ public class Export
           }
     }
 
+    /**
+     * Writes the detailed information of a given hotel to the file.
+     * @param hotel the Hotel object to extract and write information from
+     * @throws IOException if an I/O error occurs
+     */
     private void getHotelInfo(Hotel hotel) throws IOException
     {
         String hotelName = hotel.getName();

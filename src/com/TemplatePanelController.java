@@ -6,12 +6,20 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * The TemplatePanelController class serves as the template for all other controllers in the system
+ */
 public class TemplatePanelController {
 
     private TemplatePanel templatePanel;
     private CreateHotel createHotel;
     private HRSystem hrSystem;
 
+    /**
+     * Constructs a TemplatePanelController with the specified TemplatePanel and HRSystem.
+     * @param templatePanel the TemplatePanel object containing the template view
+     * @param hrSystem the HRSystem object containing hotel data
+     */
     public TemplatePanelController(TemplatePanel templatePanel, HRSystem hrSystem) {
         this.templatePanel = templatePanel;
         this.hrSystem = hrSystem;

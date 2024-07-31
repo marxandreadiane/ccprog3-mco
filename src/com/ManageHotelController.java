@@ -4,13 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
-
+/**
+ * The ManageHotelController class is responsible for managing the interactions between the
+ * ManageHotel view and the HRSystem model.
+ */
 public class ManageHotelController
 {
     private ManageHotel manageHotel;
     private HRSystem hrSystem;
     private JFrame changeName, removeHotel, addRoom, updatePrice, removeRoom, removeReservation, datePrice;
     
+    /**
+     * Constructs a ManageHotelController with the specified HRSystem.
+     * @param hrSystem the HRSystem object containing hotel data
+     */
     public ManageHotelController(HRSystem hrSystem)
     {
         this.hrSystem = hrSystem;
