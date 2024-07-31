@@ -354,7 +354,13 @@ public class TestHotelRoomReservation {
         System.out.println(r2.enterVoucher("STAY4_GET1"));
         System.out.println("");
 
-        System.out.println("Test 6-11: getBreakdown()");
+        System.out.println("Test 12: getBreakdown()");
+        System.out.print("HR DatePriceModifier: ");
+        for (i = 1; i < 31; i++) {
+            System.out.print(hotel2.getDatePriceMultiplier(14) + " ");
+        }
+        System.out.print("\nRoom Price: " + hotel2.getRoomPrice(r1.getRoom()));
+        System.out.println("\noutput: ");
         ArrayList<String> priceBreakdown= r1.getBreakdown(hotel2, r1.getRoom());
         for (String pricePerDay : priceBreakdown) {
             System.out.print(pricePerDay + " | ");

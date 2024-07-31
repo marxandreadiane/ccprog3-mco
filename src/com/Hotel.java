@@ -53,7 +53,10 @@ public class Hotel
     }
 
 
-    // BASE GETTERS and SETTERS
+    // GETTERS and SETTERS
+
+    // name and base price
+
     /**
      * Gets the name of this hotel.
      * @return the name of this hotel
@@ -61,6 +64,88 @@ public class Hotel
     public String getName()
     {
         return this.name;
+    }
+
+    /**
+     * Gets the base price of this hotel.
+     * @return the base price of this hotel
+     */
+    public double getBasePrice()
+    {
+        return this.basePrice;
+    }
+
+    /**
+     * Sets the name of this hotel.
+     * @param name the new name of this hotel
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    /**
+     * Sets the base price for all rooms in this hotel.
+     * @param price the base price to set
+     */
+    public void setBasePrice(double price)
+    {
+        this.basePrice = price;
+    }
+
+    // ROOM OPERATIONS
+    // ADDING, REMOVING AND COUNTING ROOMS, DETERMINING ROOM TYPES
+    /**
+     * Adds a new base room to the hotel.
+     * The room name is generated as "S" followed by the next available number.
+     */
+    public void addBaseRoom()
+    {
+        String name = "S" + String.format("%d", this.nextBaseRoomNumber);
+        roomList.add(new Room(name));
+
+        this.nextBaseRoomNumber++;
+    }
+
+    /**
+     * Adds a new deluxe room to the hotel.
+     * The room name is generated as "D" followed by the next available number.
+     */
+    public void addDeluxeRoom()
+    {
+        String name = "D" + String.format("%d", this.nextDeluxeRoomNumber);
+        roomList.add(new DeluxeRoom(name));
+
+        this.nextDeluxeRoomNumber++;
+    }
+
+    /**
+     * Adds a new executive room to the hotel.
+     * The room name is generated as "E" followed by the next available number.
+     */
+    public void addExecutiveRoom()
+    {
+        String name = "E" + String.format("%d", this.nextExecutiveRoomNumber);
+        roomList.add(new ExecutiveRoom(name));
+
+        this.nextExecutiveRoomNumber++;
+    }
+
+    /**
+     * Removes a room from this hotel.
+     * @param name the name of the room to remove
+     * @return true if the room is removed successfully, false if the room does not exist
+     */
+    public boolean removeRoom(String name)
+    {
+        boolean success = false;
+        
+        if (findRoomByName(name) != null)
+        {
+            roomList.remove(findRoomByName(name));
+            success = true;
+        }
+        return success;
     }
 
     /**
@@ -129,7 +214,6 @@ public class Hotel
         return executive;
     }
 
-
     /**
      * Gets the list of names of the rooms in this hotel.
      * @return the list of names of the rooms
@@ -147,28 +231,23 @@ public class Hotel
     }
 
     /**
-     * Gets the details of the reservations in this hotel.
-     * @return the String containing the details of the reservations
+     * Gets the type of a room in this hotel.
+     * @return the type of a room
      */
-    public ArrayList<String> getReservationString()
+    public String getRoomType(Room room)
     {
-        ArrayList<String> reservations = new ArrayList<String>();
-
-        for (Reservation reservation : this.reservationList)
+        String roomType = "Standard";
+        
+        if (room instanceof ExecutiveRoom)
         {
-            reservations.add(reservation.getGuestName() + " | " + reservation.getCheckInDate() + " - " + reservation.getCheckOutDate() + " | " + reservation.getRoom().getName());
+            roomType = "Executive";
+        }
+        else if (room instanceof DeluxeRoom)
+        {
+            roomType = "Deluxe";
         }
         
-        return reservations;
-    }
-
-    /**
-     * Gets the list of reservations in this hotel.
-     * @return the reservation list of this hotel
-     */
-    public ArrayList<Reservation> getReservationList()
-    {
-        return this.reservationList;
+        return roomType;
     }
 
     /**
@@ -194,25 +273,23 @@ public class Hotel
 
     /**
      * Gets the type of a room in this hotel.
-     * @param room The room object whose type will be returned
      * @return the type of a room
      */
-    public String getRoomType(Room room)
+    public Room findRoomByName(String name)
     {
-        String roomType = "Standard";
-        
-        if (room instanceof ExecutiveRoom)
+        for (Room room : roomList)
         {
-            roomType = "Executive";
+            if (room.getName().equals(name))
+            {
+                return room;
+            }
         }
-        else if (room instanceof DeluxeRoom)
-        {
-            roomType = "Deluxe";
-        }
-        
-        return roomType;
+
+        return null;
     }
 
+
+    // GET OTHER PRICES
     /**
      * Gets the price of the deluxe rooms in this hotel.
      * @return the base price of the rooms
@@ -231,95 +308,31 @@ public class Hotel
         return this.basePrice * 1.35;
     }
 
-    /**
-     * Sets the name of this hotel.
-     * @param name the new name of this hotel
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
 
+    // RESERVATION OPERATIONS
     /**
-     * Sets the base price for all rooms in this hotel.
-     * @param price the base price to set
+     * Gets the details of the reservations in this hotel.
+     * @return the String containing the details of the reservations
      */
-    public void setBasePrice(double price)
+    public ArrayList<String> getReservationString()
     {
-        this.basePrice = price;
-    }
+        ArrayList<String> reservations = new ArrayList<String>();
 
-    
-    // SPECIFIC GETTERS FOR HIGH AND LOW LEVEL DATA
-    /**
-     * Gets the number of available rooms for a specific date.
-     * @param date the date to check availability
-     * @return the number of available rooms
-     */
-    public int getAvailableRooms(int date)
-    {
-        int nRooms = 0;
-
-        for (Room room : roomList)
+        for (Reservation reservation : this.reservationList)
         {
-            if (room.getAvailability(date) == true)
-            {
-                nRooms++;
-            }
+            reservations.add(reservation.getGuestName() + " | " + reservation.getCheckInDate() + " - " + reservation.getCheckOutDate() + " | " + reservation.getRoom().getName());
         }
-        return nRooms;
-    }
-
-    /**
-     * Gets the number of booked rooms for a specific date.
-     * @param date the date to check bookings
-     * @return the number of booked rooms
-     */
-    public int getBookedRooms(int date)
-    {
-        int nRooms = 0;
-
-        for (Room room : roomList)
-        {
-            if (room.getAvailability(date) == false)
-            {
-                nRooms++;
-            }
-        }
-        return nRooms;
-    }
-
-    /**
-     * Gets the total estimated earnings from all reservations.
-     * @return the total earnings from reservations
-     */
-    public double getTotalReservationEarnings()
-    {
-        double total = 0;
-        for (Reservation reservation : reservationList)
-        {
-            total += reservation.getTotalPrice();
-        }
-
-        return total;
-    }
         
-    // ADD or DELETE METHODS
+        return reservations;
+    }
+
     /**
-     * Removes a room from this hotel.
-     * @param name the name of the room to remove
-     * @return true if the room is removed successfully, false if the room does not exist
+     * Gets the list of reservations in this hotel.
+     * @return the reservation list of this hotel
      */
-    public boolean removeRoom(String name)
+    public ArrayList<Reservation> getReservationList()
     {
-        boolean success = false;
-        
-        if (findRoomByName(name) != null)
-        {
-            roomList.remove(findRoomByName(name));
-            success = true;
-        }
-        return success;
+        return this.reservationList;
     }
 
     /**
@@ -365,6 +378,45 @@ public class Hotel
     }
 
     /**
+     * Finds a reservation based on the given information.
+     * @param reservation A string containing information regarding the reservation (name | check-in - check-out | room number)
+     * @return the reservation that matches the string
+     */
+    public Reservation findReservation(String reservation)
+    {
+        Reservation selectedReservation = null;
+        
+        try
+        {
+            String[] parts = reservation.split(" \\| | - ");
+            String guestName = parts[0].trim();
+            int checkIn = Integer.parseInt(parts[1].trim());
+            int checkOut = Integer.parseInt(parts[2].trim());
+            String room = parts[3].trim();
+
+            int i;
+
+            for (i = 0; i < getReservationList().size(); i++)
+            {
+                Reservation selectedRes = getReservationList().get(i);
+
+                if (selectedRes.getGuestName().equals(guestName) && selectedRes.getCheckInDate() == checkIn &&
+                    selectedRes.getCheckOutDate() == checkOut && selectedRes.getRoom().getName().equals(room))
+                    {
+                        selectedReservation = getReservationList().get(i);
+                    }
+            }
+        }
+        catch (Exception exception)
+        {
+            selectedReservation = null;
+        }
+        
+    
+        return selectedReservation;
+    }
+
+    /**
      * Removes a reservation for a guest.
      * @param guestName the name of the guest
      * @param checkInDate the check-in date
@@ -406,67 +458,50 @@ public class Hotel
         {
             reservation.getRoom().removeReservedDate(reservation.getCheckInDate(), reservation.getCheckOutDate());
             this.reservationList.remove(reservation);
+            success = true;
         }
         
         return success;
     }
 
-    // SEARCH METHODS
+    
+    // ROOM AVAILABILITY
     /**
-     * Finds a room by its name.
-     * @param name the name of the room to find
-     * @return the room with the specified name, or null if no such room exists
+     * Gets the number of available rooms for a specific date.
+     * @param date the date to check availability
+     * @return the number of available rooms
      */
-    public Room findRoomByName(String name)
+    public int getAvailableRooms(int date)
     {
+        int nRooms = 0;
+
         for (Room room : roomList)
         {
-            if (room.getName().equals(name))
+            if (room.getAvailability(date) == true)
             {
-                return room;
+                nRooms++;
             }
         }
-
-        return null;
+        return nRooms;
     }
 
     /**
-     * Finds a reservation based on the given information.
-     * @param reservation A string containing information regarding the reservation (name | check-in - check-out | room number)
-     * @return the reservation that matches the string
+     * Gets the number of booked rooms for a specific date.
+     * @param date the date to check bookings
+     * @return the number of booked rooms
      */
-    public Reservation findReservation(String reservation)
+    public int getBookedRooms(int date)
     {
-        Reservation selectedReservation = null;
-        
-        try
+        int nRooms = 0;
+
+        for (Room room : roomList)
         {
-            String[] parts = reservation.split(" \\| | - ");
-            String guestName = parts[0].trim();
-            int checkIn = Integer.parseInt(parts[1].trim());
-            int checkOut = Integer.parseInt(parts[2].trim());
-            String room = parts[3].trim();
-
-            int i;
-
-            for (i = 0; i < getReservationList().size(); i++)
+            if (room.getAvailability(date) == false)
             {
-                Reservation selectedRes = getReservationList().get(i);
-
-                if (selectedRes.getGuestName().equals(guestName) && selectedRes.getCheckInDate() == checkIn &&
-                    selectedRes.getCheckOutDate() == checkOut && selectedRes.getRoom().getName().equals(room))
-                    {
-                        selectedReservation = getReservationList().get(i);
-                    }
+                nRooms++;
             }
         }
-        catch (Exception exception)
-        {
-            selectedReservation = null;
-        }
-        
-    
-        return selectedReservation;
+        return nRooms;
     }
 
     /**
@@ -490,6 +525,23 @@ public class Hotel
     }
 
     /**
+     * Gets the total estimated earnings from all reservations.
+     * @return the total earnings from reservations
+     */
+    public double getTotalReservationEarnings()
+    {
+        double total = 0;
+        for (Reservation reservation : reservationList)
+        {
+            total += reservation.getTotalPrice();
+        }
+
+        return total;
+    }
+
+    // DATE PRICE MODIFIER
+
+    /**
      * Modifies the price multiplier for a given check-in date.
      * @param checkInDate the check-in date
      * @param datePriceMultiplier the price multiplier to set for the date
@@ -497,43 +549,6 @@ public class Hotel
     public void modifyDatePriceMultiplier(int checkInDate, double datePriceMultiplier)
     {
         this.datePriceModifier.set(checkInDate - 1, 1.0 * datePriceMultiplier / 100);
-    }
-
-
-    /**
-     * Adds a new base room to the hotel.
-     * The room name is generated as "S" followed by the next available number.
-     */
-    public void addBaseRoom()
-    {
-        String name = "S" + String.format("%d", this.nextBaseRoomNumber);
-        roomList.add(new Room(name));
-
-        this.nextBaseRoomNumber++;
-    }
-
-    /**
-     * Adds a new deluxe room to the hotel.
-     * The room name is generated as "D" followed by the next available number.
-     */
-    public void addDeluxeRoom()
-    {
-        String name = "D" + String.format("%d", this.nextDeluxeRoomNumber);
-        roomList.add(new DeluxeRoom(name));
-
-        this.nextDeluxeRoomNumber++;
-    }
-
-    /**
-     * Adds a new executive room to the hotel.
-     * The room name is generated as "E" followed by the next available number.
-     */
-    public void addExecutiveRoom()
-    {
-        String name = "E" + String.format("%d", this.nextExecutiveRoomNumber);
-        roomList.add(new ExecutiveRoom(name));
-
-        this.nextExecutiveRoomNumber++;
     }
 
     /**
@@ -547,7 +562,7 @@ public class Hotel
     }
 
     /**
-     * Validates the voucher room details based on guest name and check-in/check-out dates.
+     * Validates the voucher room/panel details based on guest name and check-in/check-out dates.
      * @param guestName the name of the guest
      * @param checkInStr the check-in date as a string
      * @param checkOutStr the check-out date as a string
