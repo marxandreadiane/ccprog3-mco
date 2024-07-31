@@ -248,7 +248,7 @@ public class ManageHotelController
                 String roomName = manageHotel.getRemoveRoomFieldText();
                 Room room = hotel.findRoomByName(roomName);
 
-                if (room != null)
+                if (room != null && room.getAvailability(1, 31))
                 {
                     if (manageHotel.showYesNoDialog())
                     {
@@ -263,9 +263,13 @@ public class ManageHotelController
                         removeRoom.dispose();
                     }
                 }
-                else
+                else if (room == null)
                 {
                     manageHotel.displayMessage("Room does not exist.");
+                }
+                else
+                {
+                    manageHotel.displayMessage("Room has an existing reservation.");
                 }
 
             }

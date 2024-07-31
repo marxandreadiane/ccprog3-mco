@@ -358,7 +358,7 @@ public class ViewHotel {
         panel.add(totalLabel);
 
         Double totalPrice = reservation.getTotalPrice();
-        JTextField totalField = infoText(Double.toString(totalPrice), 18, 50);
+        JTextField totalField = infoText(String.format("%.2f", totalPrice), 18, 50);
         totalField.setFont(new Font("Garamond", Font.PLAIN, 18));
         totalField.setBounds(200, 160, 130, 20);
         panel.add(totalField);
